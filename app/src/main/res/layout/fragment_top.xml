@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.home.TopFragment">
+
+        <ImageView
+            android:id="@+id/image_highlight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/view_categories"
+            style="@style/BackgroundSection"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/sp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_highlight" />
+
+        <TextView
+            android:id="@+id/text_categories"
+            style="@style/TextHeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_categories"
+            app:layout_constraintStart_toStartOf="@id/view_categories"
+            app:layout_constraintTop_toTopOf="@id/view_categories" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/text_top_rate"
+            app:layout_constraintEnd_toEndOf="@id/text_top_rate"
+            app:layout_constraintStart_toStartOf="@id/text_top_rate"
+            app:layout_constraintTop_toTopOf="@id/text_top_rate" />
+
+        <TextView
+            android:id="@+id/text_top_rate"
+            style="@style/TextCardView"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:text="@string/title_top_rate"
+            app:layout_constraintEnd_toStartOf="@id/text_now_playing"
+            app:layout_constraintStart_toStartOf="@id/view_categories"
+            app:layout_constraintTop_toBottomOf="@id/text_categories" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/text_now_playing"
+            app:layout_constraintEnd_toEndOf="@id/text_now_playing"
+            app:layout_constraintStart_toStartOf="@id/text_now_playing"
+            app:layout_constraintTop_toTopOf="@id/text_now_playing" />
+
+        <TextView
+            android:id="@+id/text_now_playing"
+            style="@style/TextCardView"
+            android:text="@string/title_now_playing"
+            app:layout_constraintBottom_toBottomOf="@id/text_top_rate"
+            app:layout_constraintEnd_toEndOf="@id/view_categories"
+            app:layout_constraintStart_toEndOf="@id/text_top_rate"
+            app:layout_constraintTop_toTopOf="@id/text_top_rate" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/text_popular"
+            app:layout_constraintEnd_toEndOf="@id/text_popular"
+            app:layout_constraintStart_toStartOf="@id/text_popular"
+            app:layout_constraintTop_toTopOf="@id/text_popular" />
+
+        <TextView
+            android:id="@+id/text_popular"
+            style="@style/TextCardView"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:text="@string/title_popular"
+            app:layout_constraintBottom_toBottomOf="@id/view_categories"
+            app:layout_constraintEnd_toEndOf="@id/text_top_rate"
+            app:layout_constraintStart_toStartOf="@id/text_top_rate"
+            app:layout_constraintTop_toBottomOf="@id/text_top_rate" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/text_upcoming"
+            app:layout_constraintEnd_toEndOf="@id/text_upcoming"
+            app:layout_constraintStart_toStartOf="@id/text_upcoming"
+            app:layout_constraintTop_toTopOf="@id/text_upcoming" />
+
+        <TextView
+            android:id="@+id/text_upcoming"
+            style="@style/TextCardView"
+            android:text="@string/title_upcoming"
+            app:layout_constraintBottom_toBottomOf="@id/text_popular"
+            app:layout_constraintEnd_toEndOf="@id/text_now_playing"
+            app:layout_constraintStart_toStartOf="@id/text_now_playing"
+            app:layout_constraintTop_toTopOf="@id/text_popular" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
