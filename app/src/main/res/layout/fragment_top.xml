@@ -3,21 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data />
+    <data>
+
+        <variable
+            name="homeVM"
+            type="com.framgia.vhlee.themoviedb.ui.home.HomeViewModel" />
+
+        <variable
+            name="movieVM"
+            type="com.framgia.vhlee.themoviedb.utils.MovieViewModel" />
+    </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.home.TopFragment">
 
-        <ImageView
-            android:id="@+id/image_highlight"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_highlight"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:pagerAdapter="@{homeVM.highLightAdapter}" />
 
         <View
             android:id="@+id/view_categories"
@@ -30,7 +40,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_highlight" />
+            app:layout_constraintTop_toBottomOf="@id/pager_highlight" />
 
         <TextView
             android:id="@+id/text_categories"
