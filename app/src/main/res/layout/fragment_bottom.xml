@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data />
+    <data>
+
+        <variable
+            name="homeVM"
+            type="com.framgia.vhlee.themoviedb.ui.home.HomeViewModel" />
+    </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,28 +32,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_genres"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_genres"
             app:layout_constraintStart_toStartOf="@id/view_genres"
-            app:layout_constraintTop_toTopOf="@id/view_genres" />
+            app:layout_constraintTop_toTopOf="@id/spinner_genres" />
 
         <Spinner
             android:id="@+id/spinner_genres"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            app:layout_constraintBottom_toBottomOf="@id/text_genres"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_genres" />
+            android:layout_marginEnd="@dimen/dp_5"
+            android:minHeight="@dimen/dp_48"
+            app:layout_constraintEnd_toEndOf="@id/view_genres"
+            app:layout_constraintTop_toTopOf="@id/view_genres"
+            app:spinnerAdapter="@{homeVM.getGenreNames}" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_genres"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
             android:orientation="vertical"
+            app:bindData="@{homeVM.movieAdapter}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@id/spinner_genres"
             app:layout_constraintStart_toStartOf="@id/text_genres"
-            app:layout_constraintTop_toBottomOf="@id/text_genres" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_genres" />
     </android.support.constraint.ConstraintLayout>
 </layout>
