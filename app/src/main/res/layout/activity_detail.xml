@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,7 +8,8 @@
             type="com.framgia.vhlee.themoviedb.ui.detail.DetailViewModel" />
     </data>
 
-    <ScrollView
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
@@ -25,15 +25,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <include layout="@layout/layout_detail_top" />
+            <include
+                layout="@layout/layout_detail_top"
+                app:movie="@{detailVM.movie}" />
 
-            <include layout="@layout/layout_detail_overview" />
+            <include
+                layout="@layout/layout_detail_overview"
+                app:movie="@{detailVM.movie}" />
 
-            <include layout="@layout/layout_detail_genres" />
+            <include
+                layout="@layout/layout_detail_genres"
+                app:movie="@{detailVM.movie}" />
 
-            <include layout="@layout/layout_detail_trailers" />
+            <include
+                layout="@layout/layout_detail_trailers"
+                app:movie="@{detailVM.movie}" />
 
-            <include layout="@layout/layout_detail_more" />
+            <include
+                layout="@layout/layout_detail_more"
+                app:movie="@{detailVM.movie}" />
         </LinearLayout>
     </ScrollView>
 </layout>

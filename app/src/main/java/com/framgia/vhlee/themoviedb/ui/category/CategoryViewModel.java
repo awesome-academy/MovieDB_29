@@ -5,7 +5,7 @@ import android.databinding.ObservableArrayList;
 
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
-import com.framgia.vhlee.themoviedb.data.repository.MovieRepository;
+import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,14 +19,14 @@ public class CategoryViewModel extends BaseObservable {
     private int mPage;
     private String mType;
     private ObservableArrayList<Movie> mMovies;
-    private MovieRepository mMovieRepository;
+    private MoviesRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable;
 
     public CategoryViewModel(String type) {
         mPage = DEFAULT_PAGE;
         mType = type;
         mMovies = new ObservableArrayList<>();
-        mMovieRepository = MovieRepository.getInstance();
+        mMoviesRepository = MoviesRepository.getInstance();
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -44,7 +44,7 @@ public class CategoryViewModel extends BaseObservable {
     }
 
     private void loaGenreMovies() {
-        Disposable disposable = mMovieRepository.getMoviesByGenre(mType, mPage)
+        Disposable disposable = mMoviesRepository.getMoviesByGenre(mType, mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResponse>() {
@@ -62,7 +62,7 @@ public class CategoryViewModel extends BaseObservable {
     }
 
     private void loadCategoryMovies() {
-        Disposable disposable = mMovieRepository.getMoviesByCategory(mType, mPage)
+        Disposable disposable = mMoviesRepository.getMoviesByCategory(mType, mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResponse>() {

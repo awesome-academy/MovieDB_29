@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="@dimen/dp_16"
-    android:paddingTop="@dimen/dp_16"
-    android:paddingEnd="@dimen/dp_16">
+<layout>
 
-    <View
-        android:id="@+id/view_detail_trailers"
-        style="@style/BackgroundSection"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/text_detail_trailers"
-        android:layout_width="wrap_content"
+        <variable
+            name="movie"
+            type="com.framgia.vhlee.themoviedb.data.model.Movie" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_16"
-        android:text="@string/title_trailers"
-        android:textAllCaps="true"
-        android:textColor="@color/color_accent"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/recycler_trailers"
-        app:layout_constraintStart_toStartOf="@id/view_detail_trailers"
-        app:layout_constraintTop_toTopOf="@id/view_detail_trailers" />
+        android:paddingStart="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_trailers"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:orientation="horizontal"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="@id/view_detail_trailers"
-        app:layout_constraintEnd_toEndOf="@id/view_detail_trailers"
-        app:layout_constraintStart_toStartOf="@id/text_detail_trailers"
-        app:layout_constraintTop_toBottomOf="@id/text_detail_trailers" />
+        <View
+            android:id="@+id/view_detail_trailers"
+            style="@style/BackgroundSection"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_detail_trailers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/title_trailers"
+            android:textAllCaps="true"
+            android:textColor="@color/color_accent"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/recycler_trailers"
+            app:layout_constraintStart_toStartOf="@id/view_detail_trailers"
+            app:layout_constraintTop_toTopOf="@id/view_detail_trailers" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_trailers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@id/view_detail_trailers"
+            app:layout_constraintEnd_toEndOf="@id/view_detail_trailers"
+            app:layout_constraintStart_toStartOf="@id/text_detail_trailers"
+            app:layout_constraintTop_toBottomOf="@id/text_detail_trailers" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
