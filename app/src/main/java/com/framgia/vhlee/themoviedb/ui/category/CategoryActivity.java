@@ -10,7 +10,7 @@ import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.databinding.ActivityCategoryBinding;
 
 public class CategoryActivity extends AppCompatActivity {
-    private static final String EXTRA_ARGS = "com.framgia.vhlee.themoviedb.EXTRA_ARGS";
+    private static final String EXTRA_ARGS = "com.framgia.vhlee.themoviedb.extras.EXTRA_ARGS";
     private static final String BUNDLE_TYPE = "BUNDLE_TYPE";
     private static final String BUNDLE_CODE = "BUNDLE_CODE";
     private CategoryViewModel mViewModel;
