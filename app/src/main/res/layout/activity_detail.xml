@@ -20,10 +20,10 @@
             android:orientation="vertical"
             tools:context=".ui.detail.DetailActivity">
 
-            <com.google.android.youtube.player.YouTubePlayerView
-                android:id="@+id/youtube_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <!--<com.google.android.youtube.player.YouTubePlayerView-->
+                <!--android:id="@+id/youtube_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
 
             <include
                 layout="@layout/layout_detail_top"

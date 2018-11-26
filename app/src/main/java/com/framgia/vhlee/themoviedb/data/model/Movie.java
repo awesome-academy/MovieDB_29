@@ -30,11 +30,15 @@ public class Movie implements Serializable {
     @SerializedName("genres")
     private List<Genre> mGenres;
 
-    @SerializedName("companies")
+    @SerializedName("production_companies")
     private List<Company> mCompanies;
 
     @SerializedName("videos")
-    private List<String> mTrailers;
+    private VideoResponse mVideoResponse;
+
+    @SerializedName("credits")
+    private Credit mCredit;
+
 
     public Movie() {
     }
@@ -111,11 +115,19 @@ public class Movie implements Serializable {
         mCompanies = companies;
     }
 
-    public List<String> getTrailers() {
-        return mTrailers;
+    public VideoResponse getVideoResponse() {
+        return mVideoResponse;
     }
 
-    public void setTrailers(List<String> trailers) {
-        mTrailers = trailers;
+    public void setVideoResponse(VideoResponse videoResponse) {
+        mVideoResponse = videoResponse;
+    }
+
+    public Credit getCredit() {
+        return mCredit;
+    }
+
+    public void setCredit(Credit credit) {
+        mCredit = credit;
     }
 }

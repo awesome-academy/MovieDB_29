@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="genreVM"
-            type="com.framgia.vhlee.themoviedb.utils.GenreViewModel" />
-
-        <variable
             name="homeVM"
             type="com.framgia.vhlee.themoviedb.ui.home.HomeViewModel" />
     </data>

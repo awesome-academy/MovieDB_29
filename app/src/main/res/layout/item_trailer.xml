@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.youtube.player.YouTubeThumbnailView
-        android:id="@+id/youtube_thumbnail"
-        android:layout_width="@dimen/dp_140"
-        android:layout_height="@dimen/dp_80"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:src="@drawable/default_poster" />
-</FrameLayout>
+    <data>
+
+        <variable
+            name="video"
+            type="com.framgia.vhlee.themoviedb.data.model.Video" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16">
+
+        <com.google.android.youtube.player.YouTubeThumbnailView
+            android:id="@+id/youtube_thumbnail"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_80"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            app:videoThumbnail="@{video.key}" />
+
+        <View
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_80"
+            android:background="@color/color_black_transparent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_youtube" />
+    </FrameLayout>
+</layout>

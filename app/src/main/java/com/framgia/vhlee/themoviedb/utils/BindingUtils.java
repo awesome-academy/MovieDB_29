@@ -13,11 +13,20 @@ import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.framgia.vhlee.themoviedb.BuildConfig;
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
+import com.framgia.vhlee.themoviedb.data.model.Video;
+import com.framgia.vhlee.themoviedb.ui.adapter.GenreAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
+import com.framgia.vhlee.themoviedb.ui.adapter.VideoAdapter;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
+import com.google.android.youtube.player.YouTubeThumbnailView;
+
+import java.util.List;
 
 public class BindingUtils {
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
@@ -48,6 +57,53 @@ public class BindingUtils {
         MovieAdapter adapter = new MovieAdapter();
         adapter.update(movies);
         recycler.setAdapter(adapter);
+    }
+
+    @BindingAdapter("bindGenres")
+    public static void bindGenres(RecyclerView recycler, List<Genre> genres) {
+        if (genres == null) return;
+        GenreAdapter adapter = new GenreAdapter();
+        adapter.update(genres);
+        recycler.setAdapter(adapter);
+    }
+
+    @BindingAdapter("bindVideos")
+    public static void bindVideos(RecyclerView recycler, List<Video> videos) {
+        if (videos == null) return;
+        VideoAdapter adapter = new VideoAdapter();
+        adapter.update(videos);
+        recycler.setAdapter(adapter);
+    }
+
+    @BindingAdapter("videoThumbnail")
+    public static void bindThumbnail(YouTubeThumbnailView view, final String videoId) {
+        YouTubeThumbnailView.OnInitializedListener listener =
+                new YouTubeThumbnailView.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubeThumbnailView view,
+                                                        final YouTubeThumbnailLoader loader) {
+                        loader.setVideo(videoId);
+                        loader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                            @Override
+                            public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                                loader.release();
+                            }
+
+                            @Override
+                            public void onThumbnailError(YouTubeThumbnailView view,
+                                                         YouTubeThumbnailLoader.ErrorReason error) {
+                                //TODO Handle load thumbnail error
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubeThumbnailView view,
+                                                        YouTubeInitializationResult result) {
+                        //TODO Handle init error
+                    }
+                };
+        view.initialize(BuildConfig.YOUTUBE_API, listener);
     }
 
     @BindingAdapter("imageUrl")
