@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.databinding.FragmentBottomBinding;
+import com.framgia.vhlee.themoviedb.ui.base.ActivityNavigator;
+import com.framgia.vhlee.themoviedb.ui.base.Navigator;
 
 public class BottomFragment extends Fragment {
     private HomeViewModel mViewModel;
@@ -21,7 +23,8 @@ public class BottomFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentBottomBinding binding = DataBindingUtil.inflate(getLayoutInflater(),
                 R.layout.fragment_bottom, container, false);
-        mViewModel = new HomeViewModel();
+        ActivityNavigator navigator = new ActivityNavigator(getActivity());
+        mViewModel = new HomeViewModel(navigator);
         binding.setHomeVM(mViewModel);
         return binding.getRoot();
     }

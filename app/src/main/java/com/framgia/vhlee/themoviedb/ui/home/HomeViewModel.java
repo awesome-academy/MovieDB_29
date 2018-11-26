@@ -3,6 +3,7 @@ package com.framgia.vhlee.themoviedb.ui.home;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -11,6 +12,8 @@ import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
 import com.framgia.vhlee.themoviedb.data.repository.MovieRepository;
+import com.framgia.vhlee.themoviedb.ui.base.ActivityNavigator;
+import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -20,6 +23,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends BaseObservable {
     private static final String TAG = "HomeViewModel";
+    private static final String EXTRA_TYPE = "type";
+    private static final String EXTRA_CODE = "code";
     private static final int DEFAULT_PAGE = 1;
     private int mPage;
     private ObservableField<String> mGenreId;
@@ -28,9 +33,11 @@ public class HomeViewModel extends BaseObservable {
     private ObservableArrayList<Genre> mGenres;
     private MovieRepository mMovieRepository;
     private CompositeDisposable mCompositeDisposable;
+    private ActivityNavigator mNavigator;
 
-    public HomeViewModel() {
+    public HomeViewModel(ActivityNavigator navigator) {
         mPage = DEFAULT_PAGE;
+        mNavigator = navigator;
         mGenreId = new ObservableField<>();
         mGenres = new ObservableArrayList<>();
         mHighLightMovies = new ObservableArrayList<>();
@@ -98,6 +105,13 @@ public class HomeViewModel extends BaseObservable {
     public void onItemSpinnerSelected(AdapterView<?> parent, View view, int position, long id) {
         mGenreId.set(mGenres.get(position).getId());
         setGenreMovies();
+    }
+
+    public void onCategoryClick(View view, String type, boolean isGenre) {
+        Bundle args = new Bundle();
+        args.putString(EXTRA_TYPE, type);
+        args.putBoolean(EXTRA_CODE, isGenre);
+        mNavigator.startActivity(CategoryActivity.getCategoryIntent(mNavigator.getContext(), args));
     }
 
     public ObservableArrayList<Movie> getHighLightMovies() {
