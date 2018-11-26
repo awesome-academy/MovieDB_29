@@ -5,8 +5,10 @@
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_16">16dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
     <dimen name="dp_48">48dp</dimen>
     <dimen name="dp_75">75dp</dimen>
     <dimen name="dp_80">80dp</dimen>
