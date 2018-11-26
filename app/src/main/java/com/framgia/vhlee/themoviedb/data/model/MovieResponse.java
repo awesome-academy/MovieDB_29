@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class Result implements Serializable {
+public class MovieResponse implements Serializable {
     @SerializedName("page")
     private int mPage;
 
@@ -18,7 +18,7 @@ public class Result implements Serializable {
     @SerializedName("results")
     private List<Movie> mResults;
 
-    public Result() {
+    public MovieResponse() {
     }
 
     public int getPage() {

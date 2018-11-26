@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Genre {
     @SerializedName("id")
-    private int mId;
+    private String mId;
 
     @SerializedName("name")
     private String mName;
@@ -12,11 +12,11 @@ public class Genre {
     public Genre() {
     }
 
-    public int getId() {
+    public String getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         mId = id;
     }
 
