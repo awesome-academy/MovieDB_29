@@ -10,12 +10,18 @@ import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
+import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 
 public class BindingUtils {
+    private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
+    private static final String IMAGE_QUALITY_MAX = "w1280";
+
     @BindingAdapter("pagerAdapter")
-    public static void bindPagerAdapter(ViewPager pager, HighLightAdapter adapter) {
+    public static void bindPagerAdapter(ViewPager pager, ObservableArrayList<Movie> movies) {
+        HighLightAdapter adapter = new HighLightAdapter();
+        adapter.update(movies);
         pager.setAdapter(adapter);
     }
 
@@ -32,14 +38,16 @@ public class BindingUtils {
     }
 
     @BindingAdapter("bindData")
-    public static void bindRecyclerMovies(RecyclerView recycler, MovieAdapter adapter) {
+    public static void bindRecyclerMovies(RecyclerView recycler, ObservableArrayList<Movie> movies) {
+        MovieAdapter adapter = new MovieAdapter();
+        adapter.update(movies);
         recycler.setAdapter(adapter);
     }
 
     @BindingAdapter("imageUrl")
     public static void bindImage(ImageView imageView, String url) {
         String source =
-                StringUtils.append(Constants.BASE_IMAGE_URL, Constants.IMAGE_QUALITY_MAX, url);
+                StringUtils.append(BASE_IMAGE_URL, IMAGE_QUALITY_MAX, url);
         Glide.with(imageView.getContext())
                 .load(source)
                 .into(imageView);

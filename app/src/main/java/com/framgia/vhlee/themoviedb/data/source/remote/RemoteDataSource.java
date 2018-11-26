@@ -4,8 +4,8 @@ import com.framgia.vhlee.themoviedb.BuildConfig;
 import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
 import com.framgia.vhlee.themoviedb.data.source.DataSource;
-import com.framgia.vhlee.themoviedb.service.NetworkService;
 import com.framgia.vhlee.themoviedb.service.ClientRequest;
+import com.framgia.vhlee.themoviedb.service.NetworkService;
 
 import io.reactivex.Observable;
 

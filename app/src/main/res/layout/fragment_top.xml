@@ -27,7 +27,7 @@
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:pagerAdapter="@{homeVM.highLightAdapter}" />
+            app:pagerAdapter="@{homeVM.highLightMovies}" />
 
         <View
             android:id="@+id/view_categories"

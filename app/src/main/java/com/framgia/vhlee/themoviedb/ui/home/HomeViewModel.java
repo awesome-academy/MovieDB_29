@@ -2,48 +2,125 @@ package com.framgia.vhlee.themoviedb.ui.home;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.framgia.vhlee.themoviedb.data.model.Genre;
-import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
-import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
+import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
+import com.framgia.vhlee.themoviedb.data.model.Movie;
+import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
+import com.framgia.vhlee.themoviedb.data.repository.MovieRepository;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends BaseObservable {
-    private HighLightAdapter mHighLightAdapter;
-    private MovieAdapter mMovieAdapter;
+    private static final String TAG = "HomeViewModel";
+    private static final int DEFAULT_PAGE = 1;
+    private int mPage;
+    private ObservableField<String> mGenreId;
+    private ObservableArrayList<Movie> mHighLightMovies;
+    private ObservableArrayList<Movie> mGenreMovies;
     private ObservableArrayList<Genre> mGenres;
+    private MovieRepository mMovieRepository;
+    private CompositeDisposable mCompositeDisposable;
 
     public HomeViewModel() {
-        mHighLightAdapter = new HighLightAdapter();
-        mMovieAdapter = new MovieAdapter();
+        mPage = DEFAULT_PAGE;
+        mGenreId = new ObservableField<>();
         mGenres = new ObservableArrayList<>();
+        mHighLightMovies = new ObservableArrayList<>();
+        mGenreMovies = new ObservableArrayList<>();
+        mMovieRepository = MovieRepository.getInstance();
+        mCompositeDisposable = new CompositeDisposable();
     }
 
-    public void setHighLightAdapter() {
+    public void setHighLightMovies() {
+        Disposable disposable = mMovieRepository.getHighLightMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieResponse>() {
+                    @Override
+                    public void accept(MovieResponse movieResponse) throws Exception {
+                        if (!mHighLightMovies.isEmpty()) mHighLightMovies.clear();
+                        mHighLightMovies.addAll(movieResponse.getResults());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable.getMessage());
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
-    public void setMovieAdapter() {
+    public void setGenreMovies() {
+        Disposable disposable = mMovieRepository.getMoviesByGenre(mGenreId.get(), mPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieResponse>() {
+                    @Override
+                    public void accept(MovieResponse movieResponse) throws Exception {
+                        if (!mGenreMovies.isEmpty()) mGenreMovies.clear();
+                        mGenreMovies.addAll(movieResponse.getResults());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable.getMessage());
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
-    public void setGenres() {
+    public void loadGenres() {
+        Disposable disposable = mMovieRepository.getGenre()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<GenresResponse>() {
+                    @Override
+                    public void accept(GenresResponse genresResponse) throws Exception {
+                        mGenres.addAll(genresResponse.getGenres());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable.getMessage());
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
-    public HighLightAdapter getHighLightAdapter() {
-        return mHighLightAdapter;
+    public void onItemSpinnerSelected(AdapterView<?> parent, View view, int position, long id) {
+        mGenreId.set(mGenres.get(position).getId());
+        setGenreMovies();
     }
 
-    public MovieAdapter getMovieAdapter() {
-        return mMovieAdapter;
+    public ObservableArrayList<Movie> getHighLightMovies() {
+        return mHighLightMovies;
+    }
+
+    public ObservableArrayList<Movie> getGenreMovies() {
+        return mGenreMovies;
     }
 
     public ObservableArrayList<Genre> getGenres() {
         return mGenres;
     }
 
-    public ObservableArrayList<String> getGenreNames() {
-        ObservableArrayList<String> names = new ObservableArrayList<>();
-        for (Genre genre : mGenres) {
-            names.add(genre.getName());
-        }
-        return names;
+    public ObservableField<String> getGenreId() {
+        return mGenreId;
+    }
+
+    private void handleError(String message) {
+        //TODO handle error
+    }
+
+    public void destroy() {
+        mCompositeDisposable.dispose();
     }
 }

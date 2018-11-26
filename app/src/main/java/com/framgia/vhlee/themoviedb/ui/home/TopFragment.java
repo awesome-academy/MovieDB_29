@@ -33,6 +33,12 @@ public class TopFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mHomeViewModel.setHighLightAdapter();
+        mHomeViewModel.setHighLightMovies();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHomeViewModel.destroy();
     }
 }
