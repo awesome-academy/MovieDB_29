@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="genreVM"
+            type="com.framgia.vhlee.themoviedb.utils.GenreViewModel" />
+
+        <variable
             name="homeVM"
             type="com.framgia.vhlee.themoviedb.ui.home.HomeViewModel" />
     </data>
@@ -38,22 +42,23 @@
 
         <Spinner
             android:id="@+id/spinner_genres"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_5"
             android:minHeight="@dimen/dp_48"
+            android:onItemSelected="@{(parent, view, position, id) -> homeVM.onItemSpinnerSelected(parent, view, position, id)}"
             app:layout_constraintEnd_toEndOf="@id/view_genres"
             app:layout_constraintTop_toTopOf="@id/view_genres"
-            app:spinnerAdapter="@{homeVM.getGenreNames}" />
+            app:spinnerAdapter="@{homeVM.genres}" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_genres"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_400"
             android:orientation="vertical"
-            app:bindData="@{homeVM.movieAdapter}"
+            app:bindData="@{homeVM.genreMovies}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@id/spinner_genres"
             app:layout_constraintStart_toStartOf="@id/text_genres"

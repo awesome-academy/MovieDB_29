@@ -29,7 +29,13 @@ public class BottomFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mViewModel.setMovieAdapter();
-        mViewModel.setGenres();
+        mViewModel.setGenreMovies();
+        mViewModel.loadGenres();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel.destroy();
     }
 }

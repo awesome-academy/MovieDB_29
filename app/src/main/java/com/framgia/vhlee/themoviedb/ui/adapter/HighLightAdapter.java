@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HighLightAdapter extends PagerAdapter {
-    private static final int MAX_SIZE = 3;
+    private static final String TAG = "HighLightAdapter";
     private List<Movie> mMovies;
 
     public HighLightAdapter() {
@@ -26,19 +26,20 @@ public class HighLightAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        MovieViewModel movieViewModel = new MovieViewModel();
         ItemHighlightBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(container.getContext()),
                 R.layout.item_highlight, container, true);
-        movieViewModel.setMovie(mMovies.get(position));
-        binding.setMovieVM(movieViewModel);
+        if (binding.getMovieVM() == null) {
+            binding.setMovieVM(new MovieViewModel());
+        }
+        binding.getMovieVM().setMovie(mMovies.get(position));
         binding.executePendingBindings();
         return binding.getRoot();
     }
 
     @Override
     public int getCount() {
-        return mMovies != null ? MAX_SIZE : 0;
+        return mMovies != null ? mMovies.size() : 0;
     }
 
     @Override
