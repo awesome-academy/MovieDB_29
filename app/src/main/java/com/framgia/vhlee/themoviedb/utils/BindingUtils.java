@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
+import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 
@@ -19,9 +20,13 @@ public class BindingUtils {
     }
 
     @BindingAdapter("spinnerAdapter")
-    public static void bindSpinner(Spinner spinner, ObservableArrayList<String> genreNames) {
+    public static void bindSpinner(Spinner spinner, ObservableArrayList<Genre> genreNames) {
+        ObservableArrayList<String> strings = new ObservableArrayList<>();
+        for (Genre genre : genreNames) {
+            strings.add(genre.getName());
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(spinner.getContext(),
-                android.R.layout.simple_spinner_item, genreNames);
+                android.R.layout.simple_spinner_item, strings);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
@@ -33,8 +38,10 @@ public class BindingUtils {
 
     @BindingAdapter("imageUrl")
     public static void bindImage(ImageView imageView, String url) {
+        String source =
+                StringUtils.append(Constants.BASE_IMAGE_URL, Constants.IMAGE_QUALITY_MAX, url);
         Glide.with(imageView.getContext())
-                .load(url)
+                .load(source)
                 .into(imageView);
     }
 }
