@@ -10,7 +10,9 @@ import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.databinding.ActivityCategoryBinding;
 
 public class CategoryActivity extends AppCompatActivity {
-    private static final String EXTRA_ARGS = "args";
+    private static final String EXTRA_ARGS = "com.framgia.vhlee.themoviedb.EXTRA_ARGS";
+    private static final String BUNDLE_TYPE = "BUNDLE_TYPE";
+    private static final String BUNDLE_CODE = "BUNDLE_CODE";
     private CategoryViewModel mViewModel;
 
     @Override
@@ -18,19 +20,30 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityCategoryBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_category);
-        mViewModel = new CategoryViewModel();
+        initViewModel();
         binding.setCategoryVM(mViewModel);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mViewModel.loaMovies();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewModel.destroy();
     }
 
     public static Intent getCategoryIntent(Context context, Bundle bundle) {
         Intent intent = new Intent(context, CategoryActivity.class);
         intent.putExtra(EXTRA_ARGS, bundle);
         return intent;
+    }
+
+    private void initViewModel() {
+        Bundle bundle = getIntent().getBundleExtra(EXTRA_ARGS);
+        mViewModel = new CategoryViewModel(bundle.getString(BUNDLE_TYPE));
+        mViewModel.loaMovies(bundle.getBoolean(BUNDLE_CODE));
     }
 }

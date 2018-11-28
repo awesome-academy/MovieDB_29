@@ -26,21 +26,21 @@ public class RemoteDataSource implements DataSource.Remote {
 
     @Override
     public Observable<GenresResponse> getGenre() {
-        return mClientRequest.getGenre(BuildConfig.API_KEY);
+        return mClientRequest.getGenre();
     }
 
     @Override
     public Observable<MovieResponse> getMoviesByCategory(String type, int page) {
-        return null;
+        return mClientRequest.getMoviesCategory(type, page);
     }
 
     @Override
     public Observable<MovieResponse> getMoviesByGenre(String id, int page) {
-        return mClientRequest.getMoviesByGenre(BuildConfig.API_KEY, id, page);
+        return mClientRequest.getMoviesByGenre(id, page);
     }
 
     @Override
     public Observable<MovieResponse> getHighLightMovies() {
-        return mClientRequest.getMoviesHighLight(BuildConfig.API_KEY);
+        return mClientRequest.getMoviesHighLight();
     }
 }

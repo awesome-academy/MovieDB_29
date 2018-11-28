@@ -23,8 +23,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends BaseObservable {
     private static final String TAG = "HomeViewModel";
-    private static final String EXTRA_TYPE = "type";
-    private static final String EXTRA_CODE = "code";
+    private static final String BUNDLE_TYPE = "BUNDLE_TYPE";
+    private static final String BUNDLE_CODE = "BUNDLE_CODE";
     private static final int DEFAULT_PAGE = 1;
     private int mPage;
     private ObservableField<String> mGenreId;
@@ -109,8 +109,8 @@ public class HomeViewModel extends BaseObservable {
 
     public void onCategoryClick(View view, String type, boolean isGenre) {
         Bundle args = new Bundle();
-        args.putString(EXTRA_TYPE, type);
-        args.putBoolean(EXTRA_CODE, isGenre);
+        args.putString(BUNDLE_TYPE, type);
+        args.putBoolean(BUNDLE_CODE, isGenre);
         mNavigator.startActivity(CategoryActivity.getCategoryIntent(mNavigator.getContext(), args));
     }
 

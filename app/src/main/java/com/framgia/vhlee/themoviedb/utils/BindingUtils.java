@@ -2,10 +2,13 @@ package com.framgia.vhlee.themoviedb.utils;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableArrayList;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +20,7 @@ import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 public class BindingUtils {
     private static final String BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
     private static final String IMAGE_QUALITY_MAX = "w1280";
+    private static final int PROGRESS_UNIT = 10;
 
     @BindingAdapter("pagerAdapter")
     public static void bindPagerAdapter(ViewPager pager, ObservableArrayList<Movie> movies) {
@@ -51,5 +55,11 @@ public class BindingUtils {
         Glide.with(imageView.getContext())
                 .load(source)
                 .into(imageView);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @BindingAdapter("progressValue")
+    public static void bindProgress(ProgressBar progressBar, float value) {
+        progressBar.setProgress((int) (value * PROGRESS_UNIT), true);
     }
 }

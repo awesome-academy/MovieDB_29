@@ -41,8 +41,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     public void append(List<Movie> movies) {
+        int lastPosition = mMovies.size();
         mMovies.addAll(movies);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(lastPosition, movies.size());
     }
 
     public void update(List<Movie> movies) {
