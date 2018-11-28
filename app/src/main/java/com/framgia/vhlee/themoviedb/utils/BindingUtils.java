@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
@@ -52,8 +54,11 @@ public class BindingUtils {
     public static void bindImage(ImageView imageView, String url) {
         String source =
                 StringUtils.append(BASE_IMAGE_URL, IMAGE_QUALITY_MAX, url);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.default_poster);
         Glide.with(imageView.getContext())
                 .load(source)
+                .apply(requestOptions.centerInside())
                 .into(imageView);
     }
 
