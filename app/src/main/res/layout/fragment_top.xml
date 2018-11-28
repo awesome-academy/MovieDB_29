@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="com.framgia.vhlee.themoviedb.data.model.GenresKey" />
         <variable
             name="homeVM"
             type="com.framgia.vhlee.themoviedb.ui.home.HomeViewModel" />
@@ -55,6 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:onClick="@{(view) -> homeVM.onCategoryClick(view, GenresKey.TOP_RATED, false)}"
             app:layout_constraintBottom_toBottomOf="@id/text_top_rate"
             app:layout_constraintEnd_toEndOf="@id/text_top_rate"
             app:layout_constraintStart_toStartOf="@id/text_top_rate"
@@ -74,6 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:onClick="@{(view) -> homeVM.onCategoryClick(view, GenresKey.NOW_PLAYING, false)}"
             app:layout_constraintBottom_toBottomOf="@id/text_now_playing"
             app:layout_constraintEnd_toEndOf="@id/text_now_playing"
             app:layout_constraintStart_toStartOf="@id/text_now_playing"
@@ -92,6 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:onClick="@{(view) -> homeVM.onCategoryClick(view, GenresKey.POPULAR, false)}"
             app:layout_constraintBottom_toBottomOf="@id/text_popular"
             app:layout_constraintEnd_toEndOf="@id/text_popular"
             app:layout_constraintStart_toStartOf="@id/text_popular"
@@ -112,6 +116,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:onClick="@{(view) -> homeVM.onCategoryClick(view, GenresKey.UPCOMING, false)}"
             app:layout_constraintBottom_toBottomOf="@id/text_upcoming"
             app:layout_constraintEnd_toEndOf="@id/text_upcoming"
             app:layout_constraintStart_toStartOf="@id/text_upcoming"

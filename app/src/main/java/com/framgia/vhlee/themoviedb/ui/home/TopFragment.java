@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.databinding.FragmentTopBinding;
+import com.framgia.vhlee.themoviedb.ui.base.ActivityNavigator;
 import com.framgia.vhlee.themoviedb.utils.MovieViewModel;
 
 public class TopFragment extends Fragment {
     private HomeViewModel mHomeViewModel;
-    private MovieViewModel mMovieViewModel;
 
     public TopFragment() {
     }
@@ -23,10 +23,11 @@ public class TopFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentTopBinding binding = DataBindingUtil.inflate(getLayoutInflater(),
                 R.layout.fragment_top, parent, false);
-        mHomeViewModel = new HomeViewModel();
-        mMovieViewModel = new MovieViewModel();
+        MovieViewModel movieViewModel = new MovieViewModel();
+        ActivityNavigator navigator = new ActivityNavigator(getActivity());
+        mHomeViewModel = new HomeViewModel(navigator);
         binding.setHomeVM(mHomeViewModel);
-        binding.setMovieVM(mMovieViewModel);
+        binding.setMovieVM(movieViewModel);
         return binding.getRoot();
     }
 
