@@ -1,81 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="@dimen/dp_16"
-    android:paddingTop="@dimen/dp_16"
-    android:paddingEnd="@dimen/dp_16">
+<layout>
 
-    <View
-        android:id="@+id/view_detail_header"
-        style="@style/BackgroundSection"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/text_detail_title"
-        android:layout_width="wrap_content"
+        <variable
+            name="movie"
+            type="com.framgia.vhlee.themoviedb.data.model.Movie" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_16"
-        android:text="@string/app_name"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/text_detail_release_date"
-        app:layout_constraintStart_toStartOf="@id/view_detail_header"
-        app:layout_constraintTop_toTopOf="@id/view_detail_header" />
+        android:paddingStart="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16">
 
-    <TextView
-        android:id="@+id/text_detail_release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_16"
-        android:text="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/text_detail_title"
-        app:layout_constraintTop_toBottomOf="@id/text_detail_title" />
+        <View
+            android:id="@+id/view_detail_header"
+            style="@style/BackgroundSection"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progress_detail_vote"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/dp_25"
-        android:layout_height="@dimen/dp_25"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:background="@drawable/circle_shape"
-        android:indeterminate="false"
-        android:max="100"
-        android:progressDrawable="@drawable/circle_progress_bar"
-        app:layout_constraintBottom_toBottomOf="@id/view_detail_header"
-        app:layout_constraintEnd_toEndOf="@id/view_detail_header"
-        app:layout_constraintTop_toTopOf="@id/view_detail_header" />
+        <TextView
+            android:id="@+id/text_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@{movie.title}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/text_detail_release_date"
+            app:layout_constraintStart_toStartOf="@id/view_detail_header"
+            app:layout_constraintTop_toTopOf="@id/view_detail_header" />
 
-    <TextView
-        android:id="@+id/text_detail_vote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_primary_dark"
-        android:textSize="@dimen/sp_12"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/progress_detail_vote"
-        app:layout_constraintEnd_toEndOf="@id/progress_detail_vote"
-        app:layout_constraintStart_toStartOf="@id/progress_detail_vote"
-        app:layout_constraintTop_toTopOf="@id/progress_detail_vote" />
+        <TextView
+            android:id="@+id/text_detail_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:text="@{movie.releaseDate}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_detail_title"
+            app:layout_constraintTop_toBottomOf="@id/text_detail_title" />
 
-    <CheckBox
-        android:id="@+id/checkbox_detail_favorite"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:button="@null"
-        android:checked="false"
-        app:layout_constraintBottom_toBottomOf="@id/progress_detail_vote"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/progress_detail_vote"
-        app:layout_constraintTop_toTopOf="@id/progress_detail_vote" />
-</android.support.constraint.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/progress_detail_vote"
+            style="?android:attr/progressBarStyleHorizontal"
+            progressValue="@{movie.voteAverage}"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:background="@drawable/circle_shape"
+            android:indeterminate="false"
+            android:max="100"
+            android:progressDrawable="@drawable/circle_progress_bar"
+            app:layout_constraintBottom_toBottomOf="@id/view_detail_header"
+            app:layout_constraintEnd_toEndOf="@id/view_detail_header"
+            app:layout_constraintTop_toTopOf="@id/view_detail_header" />
+
+        <TextView
+            android:id="@+id/text_detail_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(movie.voteAverage)}"
+            android:textColor="@color/color_primary_dark"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/progress_detail_vote"
+            app:layout_constraintEnd_toEndOf="@id/progress_detail_vote"
+            app:layout_constraintStart_toStartOf="@id/progress_detail_vote"
+            app:layout_constraintTop_toTopOf="@id/progress_detail_vote" />
+
+        <CheckBox
+            android:id="@+id/checkbox_detail_favorite"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:button="@null"
+            android:checked="false"
+            app:layout_constraintBottom_toBottomOf="@id/progress_detail_vote"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/progress_detail_vote"
+            app:layout_constraintTop_toTopOf="@id/progress_detail_vote" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

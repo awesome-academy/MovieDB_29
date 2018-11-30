@@ -1,6 +1,7 @@
 package com.framgia.vhlee.themoviedb.service;
 
 import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
+import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
 
 import io.reactivex.Observable;
@@ -22,4 +23,8 @@ public interface ClientRequest {
     @GET("movie/{type}")
     Observable<MovieResponse> getMoviesCategory(@Path("type") String type,
                                                 @Query("page") int page);
+
+    @GET("movie/{movie_id}")
+    Observable<Movie> getMovieDetail(@Path("movie_id") int id,
+                                     @Query("append_to_response") String append);
 }

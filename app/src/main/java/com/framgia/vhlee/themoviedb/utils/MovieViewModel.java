@@ -31,8 +31,16 @@ public class MovieViewModel extends BaseObservable {
         return mMovie.getVoteAverage();
     }
 
+    public String getOverview() {
+        return mMovie.getOverview();
+    }
+
     public void setMovie(Movie movie) {
         mMovie = movie;
         notifyChange();
+    }
+
+    public Movie getMovie() {
+        return mMovie;
     }
 }

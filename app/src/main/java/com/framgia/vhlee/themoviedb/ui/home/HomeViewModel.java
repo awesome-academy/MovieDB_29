@@ -11,7 +11,7 @@ import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
-import com.framgia.vhlee.themoviedb.data.repository.MovieRepository;
+import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
 import com.framgia.vhlee.themoviedb.ui.base.ActivityNavigator;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 
@@ -31,7 +31,7 @@ public class HomeViewModel extends BaseObservable {
     private ObservableArrayList<Movie> mHighLightMovies;
     private ObservableArrayList<Movie> mGenreMovies;
     private ObservableArrayList<Genre> mGenres;
-    private MovieRepository mMovieRepository;
+    private MoviesRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable;
     private ActivityNavigator mNavigator;
 
@@ -42,12 +42,12 @@ public class HomeViewModel extends BaseObservable {
         mGenres = new ObservableArrayList<>();
         mHighLightMovies = new ObservableArrayList<>();
         mGenreMovies = new ObservableArrayList<>();
-        mMovieRepository = MovieRepository.getInstance();
+        mMoviesRepository = MoviesRepository.getInstance();
         mCompositeDisposable = new CompositeDisposable();
     }
 
     public void setHighLightMovies() {
-        Disposable disposable = mMovieRepository.getHighLightMovies()
+        Disposable disposable = mMoviesRepository.getHighLightMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResponse>() {
@@ -66,7 +66,7 @@ public class HomeViewModel extends BaseObservable {
     }
 
     public void setGenreMovies() {
-        Disposable disposable = mMovieRepository.getMoviesByGenre(mGenreId.get(), mPage)
+        Disposable disposable = mMoviesRepository.getMoviesByGenre(mGenreId.get(), mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResponse>() {
@@ -85,7 +85,7 @@ public class HomeViewModel extends BaseObservable {
     }
 
     public void loadGenres() {
-        Disposable disposable = mMovieRepository.getGenre()
+        Disposable disposable = mMoviesRepository.getGenre()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GenresResponse>() {

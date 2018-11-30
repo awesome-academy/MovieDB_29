@@ -1,7 +1,7 @@
 package com.framgia.vhlee.themoviedb.data.source.remote;
 
-import com.framgia.vhlee.themoviedb.BuildConfig;
 import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
+import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
 import com.framgia.vhlee.themoviedb.data.source.DataSource;
 import com.framgia.vhlee.themoviedb.service.ClientRequest;
@@ -42,5 +42,10 @@ public class RemoteDataSource implements DataSource.Remote {
     @Override
     public Observable<MovieResponse> getHighLightMovies() {
         return mClientRequest.getMoviesHighLight();
+    }
+
+    @Override
+    public Observable<Movie> getMovieDetail(int id, String append) {
+        return mClientRequest.getMovieDetail(id, append);
     }
 }
