@@ -23,12 +23,12 @@ public class CategoryViewModel extends BaseObservable {
     private CompositeDisposable mCompositeDisposable;
     private CategoryNavigator mNavigator;
 
-    public CategoryViewModel(CategoryNavigator navigator, String type) {
+    public CategoryViewModel(CategoryNavigator navigator, MoviesRepository repository, String type) {
         mPage = DEFAULT_PAGE;
         mType = type;
         mNavigator = navigator;
         mMovies = new ObservableArrayList<>();
-        mMoviesRepository = MoviesRepository.getInstance();
+        mMoviesRepository = repository;
         mCompositeDisposable = new CompositeDisposable();
     }
 

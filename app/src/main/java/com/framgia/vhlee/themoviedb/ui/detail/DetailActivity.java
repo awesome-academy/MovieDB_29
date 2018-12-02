@@ -13,6 +13,9 @@ import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.Video;
+import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
+import com.framgia.vhlee.themoviedb.data.source.local.LocalDataSource;
+import com.framgia.vhlee.themoviedb.data.source.remote.RemoteDataSource;
 import com.framgia.vhlee.themoviedb.databinding.ActivityDetailBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.GenreAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.VideoAdapter;
@@ -40,7 +43,10 @@ public class DetailActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
-        mViewModel = new DetailViewModel(this);
+        MoviesRepository repository = MoviesRepository.getInstance(
+                LocalDataSource.getInstance(getApplicationContext()),
+                RemoteDataSource.getInstance());
+        mViewModel = new DetailViewModel(this, repository);
         mBinding.setDetailVM(mViewModel);
         initAdapter();
         initYoutubePlayerView();

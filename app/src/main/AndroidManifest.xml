@@ -26,6 +26,7 @@
             android:name=".ui.detail.DetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor" />
+        <activity android:name=".ui.favorite.FavoriteActivity" />
     </application>
 
 </manifest>

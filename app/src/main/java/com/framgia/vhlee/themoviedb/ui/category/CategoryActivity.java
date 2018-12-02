@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
+import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
+import com.framgia.vhlee.themoviedb.data.source.local.LocalDataSource;
+import com.framgia.vhlee.themoviedb.data.source.remote.RemoteDataSource;
 import com.framgia.vhlee.themoviedb.databinding.ActivityCategoryBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
@@ -60,7 +63,10 @@ public class CategoryActivity extends AppCompatActivity
     private void initViewModel() {
         Bundle bundle = getIntent().getBundleExtra(EXTRA_ARGS);
         Genre genre = (Genre) bundle.getSerializable(BUNDLE_GENRE);
-        mViewModel = new CategoryViewModel(this, genre.getId());
+        MoviesRepository repository = MoviesRepository.getInstance(
+                LocalDataSource.getInstance(getApplicationContext()),
+                RemoteDataSource.getInstance());
+        mViewModel = new CategoryViewModel(this, repository, genre.getId());
         mViewModel.loaMovies(bundle.getBoolean(BUNDLE_TYPE));
     }
 
