@@ -8,42 +8,56 @@
             type="com.framgia.vhlee.themoviedb.ui.detail.DetailViewModel" />
     </data>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/scroll_view_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".ui.detail.DetailActivity">
+            android:scrollbars="none">
 
-            <!--<com.google.android.youtube.player.YouTubePlayerView-->
-                <!--android:id="@+id/youtube_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:context=".ui.detail.DetailActivity">
 
-            <include
-                layout="@layout/layout_detail_top"
-                app:movie="@{detailVM.movie}" />
+                <include
+                    android:id="@+id/view_top"
+                    layout="@layout/layout_detail_top"
+                    app:movie="@{detailVM.movie}" />
 
-            <include
-                layout="@layout/layout_detail_overview"
-                app:movie="@{detailVM.movie}" />
+                <include
+                    android:id="@+id/view_overview"
+                    layout="@layout/layout_detail_overview"
+                    app:movie="@{detailVM.movie}" />
 
-            <include
-                layout="@layout/layout_detail_genres"
-                app:movie="@{detailVM.movie}" />
+                <include
+                    android:id="@+id/view_genres"
+                    layout="@layout/layout_detail_genres"
+                    app:movie="@{detailVM.movie}" />
 
-            <include
-                layout="@layout/layout_detail_trailers"
-                app:movie="@{detailVM.movie}" />
+                <include
+                    android:id="@+id/view_trailers"
+                    layout="@layout/layout_detail_trailers"
+                    app:movie="@{detailVM.movie}" />
 
-            <include
-                layout="@layout/layout_detail_more"
-                app:movie="@{detailVM.movie}" />
-        </LinearLayout>
-    </ScrollView>
+                <include
+                    android:id="@+id/view_more"
+                    layout="@layout/layout_detail_more"
+                    app:detailVM="@{detailVM}"
+                    app:movie="@{detailVM.movie}" />
+            </LinearLayout>
+        </ScrollView>
+
+        <fragment
+            android:id="@+id/fragment_youtube_view"
+            class="com.framgia.vhlee.themoviedb.ui.detail.VideoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 </layout>
