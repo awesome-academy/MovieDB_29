@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+    private static final String TAG = "MovieAdapter";
     private List<Movie> mMovies;
+    private boolean mIsFavorite;
     private MovieClickListener mMovieClickListener;
 
     public MovieAdapter(MovieClickListener listener) {
@@ -55,7 +57,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public void delete(int position) {
+        mMovies.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mMovies.size());
+    }
+
+    public void setFavorite(boolean favorite) {
+        mIsFavorite = favorite;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemMovieBinding mItemMovieBinding;
         private MovieClickListener mClickListener;
 
@@ -63,7 +75,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             super(itemMovieBinding.getRoot());
             mItemMovieBinding = itemMovieBinding;
             mClickListener = listener;
-            itemView.setOnClickListener(this);
+            mItemMovieBinding.imageDelete.setOnClickListener(this);
+            mItemMovieBinding.textVoteAverage.setOnClickListener(this);
+            mItemMovieBinding.cardMovie.setOnClickListener(this);
         }
 
         public void bindData(Movie movie) {
@@ -75,11 +89,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         @Override
         public void onClick(View view) {
-            mClickListener.onMovieClick(mItemMovieBinding.getMovieVM().getMovie());
+            if (view == mItemMovieBinding.imageDelete) {
+                mClickListener.onDeleteClick(mItemMovieBinding.getMovieVM().getMovie(), getAdapterPosition());
+            }
+            if (view == mItemMovieBinding.textVoteAverage && mIsFavorite) {
+                mItemMovieBinding.imageDelete.setVisibility(View.VISIBLE);
+                mItemMovieBinding.textVoteAverage.setVisibility(View.GONE);
+            }
+            if (view == mItemMovieBinding.cardMovie) {
+                mClickListener.onMovieClick(mItemMovieBinding.getMovieVM().getMovie());
+            }
         }
     }
 
     public interface MovieClickListener {
         void onMovieClick(Movie movie);
+
+        void onDeleteClick(Movie movie, int position);
     }
 }

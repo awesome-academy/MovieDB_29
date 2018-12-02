@@ -79,4 +79,9 @@ public class CategoryActivity extends AppCompatActivity
     public void onMovieClick(Movie movie) {
         startDetailActivity(movie);
     }
+
+    @Override
+    public void onDeleteClick(Movie movie, int position) {
+
+    }
 }
