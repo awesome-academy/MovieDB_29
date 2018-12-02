@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.vhlee.themoviedb.R;
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
     private List<Genre> mGenres;
+    private GenreClickListener mGenreClickListener;
 
-    public GenreAdapter() {
+    public GenreAdapter(GenreClickListener listener) {
         mGenres = new ArrayList<>();
+        mGenreClickListener = listener;
     }
 
     @NonNull
@@ -26,7 +29,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemLabelBinding itemLabelBinding =
                 DataBindingUtil.inflate(inflater, R.layout.item_label, parent, false);
-        return new ViewHolder(itemLabelBinding);
+        return new ViewHolder(itemLabelBinding, mGenreClickListener);
     }
 
     @Override
@@ -45,16 +48,28 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         return mGenres != null ? mGenres.size() : 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemLabelBinding mItemLabelBinding;
+        private GenreClickListener mClickListener;
 
-        public ViewHolder(ItemLabelBinding itemLabelBinding) {
+        public ViewHolder(ItemLabelBinding itemLabelBinding, GenreClickListener listener) {
             super(itemLabelBinding.getRoot());
             mItemLabelBinding = itemLabelBinding;
+            mClickListener = listener;
+            itemLabelBinding.buttonLabel.setOnClickListener(this);
         }
 
         public void bindData(Genre genre) {
             mItemLabelBinding.setGenre(genre);
         }
+
+        @Override
+        public void onClick(View view) {
+            mClickListener.onGenreClick(mItemLabelBinding.getGenre());
+        }
+    }
+
+    public interface GenreClickListener {
+        void onGenreClick(Genre genre);
     }
 }

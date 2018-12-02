@@ -15,17 +15,21 @@ import com.framgia.vhlee.themoviedb.utils.MovieViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HighLightAdapter extends PagerAdapter {
+public class HighLightAdapter extends PagerAdapter
+        implements View.OnClickListener {
     private static final String TAG = "HighLightAdapter";
     private List<Movie> mMovies;
+    private HighLightClickListener mHighLightClickListener;
+    private int mCurrentPosition;
 
-    public HighLightAdapter() {
+    public HighLightAdapter(HighLightClickListener listener) {
         mMovies = new ArrayList<>();
+        mHighLightClickListener = listener;
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         ItemHighlightBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(container.getContext()),
                 R.layout.item_highlight, container, true);
@@ -34,6 +38,7 @@ public class HighLightAdapter extends PagerAdapter {
         }
         binding.getMovieVM().setMovie(mMovies.get(position));
         binding.executePendingBindings();
+        binding.constraintHighlight.setOnClickListener(this);
         return binding.getRoot();
     }
 
@@ -52,9 +57,22 @@ public class HighLightAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    @Override
+    public void onClick(View view) {
+        mHighLightClickListener.onHighLightClick(mMovies.get(mCurrentPosition));
+    }
+
     public void update(List<Movie> movies) {
         if (mMovies != null) mMovies.clear();
         mMovies.addAll(movies);
         notifyDataSetChanged();
+    }
+
+    public void setCurrentPosition(int position) {
+        mCurrentPosition = position;
+    }
+
+    public interface HighLightClickListener {
+        void onHighLightClick(Movie movie);
     }
 }

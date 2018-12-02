@@ -14,7 +14,8 @@ import com.framgia.vhlee.themoviedb.databinding.ActivityCategoryBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 
-public class CategoryActivity extends AppCompatActivity implements CategoryNavigator {
+public class CategoryActivity extends AppCompatActivity
+        implements CategoryNavigator, MovieAdapter.MovieClickListener {
     private static final String EXTRA_ARGS = "com.framgia.vhlee.themoviedb.extras.EXTRA_ARGS";
     private static final String BUNDLE_TYPE = "BUNDLE_TYPE";
     private static final String BUNDLE_GENRE = "BUNDLE_GENRE";
@@ -65,6 +66,11 @@ public class CategoryActivity extends AppCompatActivity implements CategoryNavig
 
     private void initAdapter() {
         RecyclerView recycler = mBinding.recyclerMovies;
-        recycler.setAdapter(new MovieAdapter());
+        recycler.setAdapter(new MovieAdapter(this));
+    }
+
+    @Override
+    public void onMovieClick(Movie movie) {
+        startDetailActivity(movie);
     }
 }

@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.vhlee.themoviedb.R;
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
     private List<Video> mVideos;
+    private VideoClickListener mVideoClickListener;
 
-    public VideoAdapter() {
+    public VideoAdapter(VideoClickListener listener) {
         mVideos = new ArrayList<>();
+        mVideoClickListener = listener;
     }
 
     @NonNull
@@ -26,7 +29,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemTrailerBinding itemTrailerBinding =
                 DataBindingUtil.inflate(inflater, R.layout.item_trailer, parent, false);
-        return new ViewHolder(itemTrailerBinding);
+        return new ViewHolder(itemTrailerBinding, mVideoClickListener);
     }
 
     @Override
@@ -45,16 +48,28 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         return mVideos != null ? mVideos.size() : 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemTrailerBinding mItemTrailerBinding;
+        private VideoClickListener mClickListener;
 
-        public ViewHolder(ItemTrailerBinding itemTrailerBinding) {
+        public ViewHolder(ItemTrailerBinding itemTrailerBinding, VideoClickListener listener) {
             super(itemTrailerBinding.getRoot());
             mItemTrailerBinding = itemTrailerBinding;
+            mClickListener = listener;
+            mItemTrailerBinding.youtubeThumbnail.setOnClickListener(this);
         }
 
         public void bindData(Video video) {
             mItemTrailerBinding.setVideo(video);
         }
+
+        @Override
+        public void onClick(View view) {
+            mClickListener.onVideoClick(mItemTrailerBinding.getVideo());
+        }
+    }
+
+    public interface VideoClickListener {
+        void onVideoClick(Video video);
     }
 }

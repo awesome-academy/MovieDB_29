@@ -18,8 +18,10 @@ import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 import com.framgia.vhlee.themoviedb.utils.MovieViewModel;
 
-public class TopFragment extends Fragment implements HomeNavigator {
+public class TopFragment extends Fragment
+        implements HomeNavigator, HighLightAdapter.HighLightClickListener, ViewPager.OnPageChangeListener {
     private HomeViewModel mHomeViewModel;
+    private HighLightAdapter mAdapter;
 
     public TopFragment() {
     }
@@ -33,8 +35,7 @@ public class TopFragment extends Fragment implements HomeNavigator {
         mHomeViewModel = new HomeViewModel(this);
         binding.setHomeVM(mHomeViewModel);
         binding.setMovieVM(movieViewModel);
-        ViewPager pager = binding.pagerHighlight;
-        pager.setAdapter(new HighLightAdapter());
+        initViewPager(binding.pagerHighlight);
         return binding.getRoot();
     }
 
@@ -60,4 +61,27 @@ public class TopFragment extends Fragment implements HomeNavigator {
         startActivity(DetailActivity.getDetailIntent(getActivity(), movie));
     }
 
+    @Override
+    public void onHighLightClick(Movie movie) {
+        startDetailActivity(movie);
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        mAdapter.setCurrentPosition(i);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+    }
+
+    private void initViewPager(ViewPager pager) {
+        mAdapter = new HighLightAdapter(this);
+        pager.setAdapter(mAdapter);
+        pager.addOnPageChangeListener(this);
+    }
 }

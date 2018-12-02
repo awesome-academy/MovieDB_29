@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.vhlee.themoviedb.R;
@@ -16,8 +17,10 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     private List<Movie> mMovies;
+    private MovieClickListener mMovieClickListener;
 
-    public MovieAdapter() {
+    public MovieAdapter(MovieClickListener listener) {
+        mMovieClickListener = listener;
         mMovies = new ArrayList<>();
     }
 
@@ -27,7 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemMovieBinding itemMovieBinding =
                 DataBindingUtil.inflate(inflater, R.layout.item_movie, parent, false);
-        return new ViewHolder(itemMovieBinding);
+        return new ViewHolder(itemMovieBinding, mMovieClickListener);
     }
 
     @Override
@@ -52,12 +55,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemMovieBinding mItemMovieBinding;
+        private MovieClickListener mClickListener;
 
-        public ViewHolder(ItemMovieBinding itemMovieBinding) {
+        public ViewHolder(ItemMovieBinding itemMovieBinding, MovieClickListener listener) {
             super(itemMovieBinding.getRoot());
             mItemMovieBinding = itemMovieBinding;
+            mClickListener = listener;
+            itemView.setOnClickListener(this);
         }
 
         public void bindData(Movie movie) {
@@ -66,5 +72,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             }
             mItemMovieBinding.getMovieVM().setMovie(movie);
         }
+
+        @Override
+        public void onClick(View view) {
+            mClickListener.onMovieClick(mItemMovieBinding.getMovieVM().getMovie());
+        }
+    }
+
+    public interface MovieClickListener {
+        void onMovieClick(Movie movie);
     }
 }
