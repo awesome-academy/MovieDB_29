@@ -3,6 +3,7 @@ package com.framgia.vhlee.themoviedb.ui.detail;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.view.View;
+import android.widget.Toast;
 
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
@@ -55,9 +56,9 @@ public class DetailViewModel {
 
     public void onFavoriteClick(View view, Movie movie) {
         if (mIsFavorite.get()) {
-            mIsFavorite.set(false);
+            if (mMoviesRepository.delete(movie)) mIsFavorite.set(false);
         } else {
-            mIsFavorite.set(true);
+            if (mMoviesRepository.insert(movie)) mIsFavorite.set(true);
         }
     }
 

@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="detailVM"
+            type="com.framgia.vhlee.themoviedb.ui.detail.DetailViewModel" />
+
+        <variable
             name="movie"
             type="com.framgia.vhlee.themoviedb.data.model.Movie" />
     </data>
@@ -52,7 +56,7 @@
             android:textSize="@dimen/sp_16"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/text_detail_release_date"
-            app:layout_constraintEnd_toStartOf="@id/progress_detail_vote"
+            app:layout_constraintEnd_toStartOf="@id/image_detail_favorite"
             app:layout_constraintStart_toStartOf="@id/view_detail_header"
             app:layout_constraintTop_toTopOf="@id/view_detail_header" />
 
@@ -109,13 +113,14 @@
             app:layout_constraintStart_toStartOf="@id/progress_detail_vote"
             app:layout_constraintTop_toTopOf="@id/progress_detail_vote" />
 
-        <CheckBox
-            android:id="@+id/checkbox_detail_favorite"
+        <ImageView
+            android:id="@+id/image_detail_favorite"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/dp_16"
-            android:button="@null"
-            android:checked="false"
+            android:onClick="@{(view) -> detailVM.onFavoriteClick(view, movie)}"
+            android:scaleType="fitCenter"
+            android:src="@{detailVM.isFavorite ? @drawable/ic_liked : @drawable/ic_unlike}"
             app:layout_constraintBottom_toBottomOf="@id/progress_detail_vote"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/progress_detail_vote"

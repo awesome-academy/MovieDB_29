@@ -11,4 +11,6 @@
     <string name="title_overview">Overview</string>
     <string name="title_actors">Actors</string>
     <string name="title_companies">Companies</string>
+    <string name="title_favorite_storage">Favorite storage</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

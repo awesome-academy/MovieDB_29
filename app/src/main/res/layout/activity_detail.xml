@@ -29,6 +29,7 @@
                 <include
                     android:id="@+id/view_top"
                     layout="@layout/layout_detail_top"
+                    app:detailVM="@{detailVM}"
                     app:movie="@{detailVM.movie}" />
 
                 <include

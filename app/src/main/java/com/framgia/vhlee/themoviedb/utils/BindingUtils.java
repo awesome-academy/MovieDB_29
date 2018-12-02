@@ -134,11 +134,13 @@ public class BindingUtils {
     public static void bindImage(ImageView imageView, String url) {
         String source =
                 StringUtils.append(BASE_IMAGE_URL, IMAGE_QUALITY_MAX, url);
+        if (url == null) imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.default_poster);
+        requestOptions.placeholder(R.drawable.default_poster)
+                .error(R.drawable.ic_default_image);
         Glide.with(imageView.getContext())
                 .load(source)
-                .apply(requestOptions.centerInside())
+                .apply(requestOptions)
                 .into(imageView);
     }
 

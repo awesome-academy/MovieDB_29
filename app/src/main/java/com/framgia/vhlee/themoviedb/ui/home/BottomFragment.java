@@ -65,6 +65,10 @@ public class BottomFragment extends Fragment implements HomeNavigator, MovieAdap
     }
 
     @Override
+    public void startFavoriteActivity() {
+    }
+
+    @Override
     public void onMovieClick(Movie movie) {
         startDetailActivity(movie);
     }
