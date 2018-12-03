@@ -6,6 +6,10 @@
         <variable
             name="movie"
             type="com.framgia.vhlee.themoviedb.data.model.Movie" />
+
+        <variable
+            name="detailVM"
+            type="com.framgia.vhlee.themoviedb.ui.detail.DetailViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,6 +36,7 @@
             android:layout_marginTop="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
             android:background="@drawable/button_outline_style"
+            android:onClick="@{(view) -> detailVM.onButtonClick(view, movie, true)}"
             android:text="@string/title_actors"
             app:layout_constraintBottom_toBottomOf="@id/view_detail_more"
             app:layout_constraintEnd_toStartOf="@id/button_companies"
@@ -45,11 +50,11 @@
             android:layout_height="@dimen/dp_25"
             android:layout_marginStart="@dimen/dp_16"
             android:background="@drawable/button_outline_style"
+            android:onClick="@{(view) -> detailVM.onButtonClick(view, movie, false)}"
             android:text="@string/title_companies"
             app:layout_constraintBottom_toBottomOf="@id/button_actors"
             app:layout_constraintEnd_toEndOf="@id/view_detail_more"
             app:layout_constraintStart_toEndOf="@id/button_actors"
             app:layout_constraintTop_toTopOf="@id/button_actors" />
     </android.support.constraint.ConstraintLayout>
-
 </layout>

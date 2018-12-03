@@ -5,10 +5,15 @@ import android.databinding.BaseObservable;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 
 public class MovieViewModel extends BaseObservable {
+    private static final String TAG = "MovieViewModel";
     private Movie mMovie;
 
     public MovieViewModel() {
         mMovie = new Movie();
+    }
+
+    public int getId() {
+        return mMovie.getId();
     }
 
     public String getBackdropPath() {
