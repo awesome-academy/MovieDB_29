@@ -1,6 +1,7 @@
 package com.framgia.vhlee.themoviedb.ui.detail;
 
 import android.databinding.ObservableField;
+import android.view.View;
 
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
@@ -17,11 +18,13 @@ public class DetailViewModel {
     private ObservableField<Movie> mMovie;
     private MoviesRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable;
+    private DetailNavigator mNavigator;
 
-    public DetailViewModel() {
+    public DetailViewModel(DetailNavigator navigator) {
         mMovie = new ObservableField<>();
         mMoviesRepository = MoviesRepository.getInstance();
         mCompositeDisposable = new CompositeDisposable();
+        mNavigator = navigator;
     }
 
     public void loadDetail(int id) {
@@ -40,6 +43,10 @@ public class DetailViewModel {
                     }
                 });
         mCompositeDisposable.add(disposable);
+    }
+
+    public void onButtonClick(View view, Movie movie, boolean isCast) {
+        mNavigator.showBottomSheet(movie, isCast);
     }
 
     private void handleError(String message) {

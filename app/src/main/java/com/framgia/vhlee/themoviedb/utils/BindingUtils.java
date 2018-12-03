@@ -3,6 +3,7 @@ package com.framgia.vhlee.themoviedb.utils;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableArrayList;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +16,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.framgia.vhlee.themoviedb.BuildConfig;
 import com.framgia.vhlee.themoviedb.R;
+import com.framgia.vhlee.themoviedb.data.model.Cast;
+import com.framgia.vhlee.themoviedb.data.model.Company;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.Video;
+import com.framgia.vhlee.themoviedb.ui.adapter.CastAdapter;
+import com.framgia.vhlee.themoviedb.ui.adapter.CompanyAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.GenreAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
@@ -35,9 +40,10 @@ public class BindingUtils {
 
     @BindingAdapter("pagerAdapter")
     public static void bindPagerAdapter(ViewPager pager, ObservableArrayList<Movie> movies) {
-        HighLightAdapter adapter = new HighLightAdapter();
-        adapter.update(movies);
-        pager.setAdapter(adapter);
+        HighLightAdapter adapter = (HighLightAdapter) pager.getAdapter();
+        if (adapter != null) {
+            adapter.update(movies);
+        }
     }
 
     @BindingAdapter("spinnerAdapter")
@@ -54,25 +60,28 @@ public class BindingUtils {
 
     @BindingAdapter("bindData")
     public static void bindRecyclerMovies(RecyclerView recycler, ObservableArrayList<Movie> movies) {
-        MovieAdapter adapter = new MovieAdapter();
-        adapter.update(movies);
-        recycler.setAdapter(adapter);
+        MovieAdapter adapter = (MovieAdapter) recycler.getAdapter();
+        if (adapter != null) {
+            adapter.update(movies);
+        }
     }
 
     @BindingAdapter("bindGenres")
     public static void bindGenres(RecyclerView recycler, List<Genre> genres) {
         if (genres == null) return;
-        GenreAdapter adapter = new GenreAdapter();
-        adapter.update(genres);
-        recycler.setAdapter(adapter);
+        GenreAdapter adapter = (GenreAdapter) recycler.getAdapter();
+        if (adapter != null) {
+            adapter.update(genres);
+        }
     }
 
     @BindingAdapter("bindVideos")
     public static void bindVideos(RecyclerView recycler, List<Video> videos) {
         if (videos == null) return;
-        VideoAdapter adapter = new VideoAdapter();
-        adapter.update(videos);
-        recycler.setAdapter(adapter);
+        VideoAdapter adapter = (VideoAdapter) recycler.getAdapter();
+        if (adapter != null) {
+            adapter.update(videos);
+        }
     }
 
     @BindingAdapter("videoThumbnail")
@@ -104,6 +113,18 @@ public class BindingUtils {
                     }
                 };
         view.initialize(BuildConfig.YOUTUBE_API, listener);
+    }
+
+    @BindingAdapter({"checkData", "bindCompanies", "bindCasts"})
+    public static void bindCompanies(RecyclerView recycler, boolean isCast,
+                                     @Nullable List<Company> companies, @Nullable List<Cast> casts) {
+        if (isCast) {
+            CastAdapter adapter = new CastAdapter(casts);
+            recycler.setAdapter(adapter);
+        } else {
+            CompanyAdapter adapter = new CompanyAdapter(companies);
+            recycler.setAdapter(adapter);
+        }
     }
 
     @BindingAdapter("imageUrl")
