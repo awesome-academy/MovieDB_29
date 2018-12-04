@@ -3,17 +3,16 @@ package com.framgia.vhlee.themoviedb.ui.home;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.framgia.vhlee.themoviedb.data.model.CategoryName;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
+import com.framgia.vhlee.themoviedb.data.model.GenresKey;
 import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
 import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
-import com.framgia.vhlee.themoviedb.ui.base.ActivityNavigator;
-import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,9 +32,9 @@ public class HomeViewModel extends BaseObservable {
     private ObservableArrayList<Genre> mGenres;
     private MoviesRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable;
-    private ActivityNavigator mNavigator;
+    private HomeNavigator mNavigator;
 
-    public HomeViewModel(ActivityNavigator navigator) {
+    public HomeViewModel(HomeNavigator navigator) {
         mPage = DEFAULT_PAGE;
         mNavigator = navigator;
         mGenreId = new ObservableField<>();
@@ -108,10 +107,25 @@ public class HomeViewModel extends BaseObservable {
     }
 
     public void onCategoryClick(View view, String type, boolean isGenre) {
-        Bundle args = new Bundle();
-        args.putString(BUNDLE_TYPE, type);
-        args.putBoolean(BUNDLE_CODE, isGenre);
-        mNavigator.startActivity(CategoryActivity.getCategoryIntent(mNavigator.getContext(), args));
+        Genre genre = new Genre();
+        genre.setId(type);
+        genre.setName(convertType(type));
+        mNavigator.startCategoryActivity(genre, isGenre);
+    }
+
+    private String convertType(String type) {
+        switch (type) {
+            case GenresKey.TOP_RATED:
+                return CategoryName.TOP_RATED;
+            case GenresKey.NOW_PLAYING:
+                return CategoryName.NOW_PLAYING;
+            case GenresKey.POPULAR:
+                return CategoryName.POPULAR;
+            case GenresKey.UPCOMING:
+                return CategoryName.UPCOMING;
+            default:
+                return CategoryName.TOP_RATED;
+        }
     }
 
     public ObservableArrayList<Movie> getHighLightMovies() {

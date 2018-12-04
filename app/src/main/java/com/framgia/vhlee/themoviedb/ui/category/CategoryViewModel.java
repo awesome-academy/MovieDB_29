@@ -21,10 +21,12 @@ public class CategoryViewModel extends BaseObservable {
     private ObservableArrayList<Movie> mMovies;
     private MoviesRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable;
+    private CategoryNavigator mNavigator;
 
-    public CategoryViewModel(String type) {
+    public CategoryViewModel(CategoryNavigator navigator, String type) {
         mPage = DEFAULT_PAGE;
         mType = type;
+        mNavigator = navigator;
         mMovies = new ObservableArrayList<>();
         mMoviesRepository = MoviesRepository.getInstance();
         mCompositeDisposable = new CompositeDisposable();

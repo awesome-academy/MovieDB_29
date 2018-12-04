@@ -4,7 +4,6 @@ import android.databinding.BindingAdapter;
 import android.databinding.ObservableArrayList;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
@@ -139,9 +138,12 @@ public class BindingUtils {
                 .into(imageView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @BindingAdapter("progressValue")
     public static void bindProgress(ProgressBar progressBar, float value) {
-        progressBar.setProgress((int) (value * PROGRESS_UNIT), true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            progressBar.setProgress((int) (value * PROGRESS_UNIT), true);
+        } else {
+            progressBar.setProgress((int) (value * PROGRESS_UNIT));
+        }
     }
 }

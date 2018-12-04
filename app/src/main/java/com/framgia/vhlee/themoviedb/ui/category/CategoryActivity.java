@@ -5,23 +5,39 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 
 import com.framgia.vhlee.themoviedb.R;
+import com.framgia.vhlee.themoviedb.data.model.Genre;
+import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.databinding.ActivityCategoryBinding;
+import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
+import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity implements CategoryNavigator {
     private static final String EXTRA_ARGS = "com.framgia.vhlee.themoviedb.extras.EXTRA_ARGS";
     private static final String BUNDLE_TYPE = "BUNDLE_TYPE";
-    private static final String BUNDLE_CODE = "BUNDLE_CODE";
+    private static final String BUNDLE_GENRE = "BUNDLE_GENRE";
     private CategoryViewModel mViewModel;
+    private ActivityCategoryBinding mBinding;
+
+    public static Intent getCategoryIntent(Context context, Genre genre, boolean isGenre) {
+        Intent intent = new Intent(context, CategoryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_GENRE, genre);
+        bundle.putBoolean(BUNDLE_TYPE, isGenre);
+        intent.putExtra(EXTRA_ARGS, bundle);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCategoryBinding binding =
+        mBinding =
                 DataBindingUtil.setContentView(this, R.layout.activity_category);
         initViewModel();
-        binding.setCategoryVM(mViewModel);
+        initAdapter();
+        mBinding.setCategoryVM(mViewModel);
     }
 
     @Override
@@ -35,15 +51,20 @@ public class CategoryActivity extends AppCompatActivity {
         mViewModel.destroy();
     }
 
-    public static Intent getCategoryIntent(Context context, Bundle bundle) {
-        Intent intent = new Intent(context, CategoryActivity.class);
-        intent.putExtra(EXTRA_ARGS, bundle);
-        return intent;
+    @Override
+    public void startDetailActivity(Movie movie) {
+        startActivity(DetailActivity.getDetailIntent(this, movie));
     }
 
     private void initViewModel() {
         Bundle bundle = getIntent().getBundleExtra(EXTRA_ARGS);
-        mViewModel = new CategoryViewModel(bundle.getString(BUNDLE_TYPE));
-        mViewModel.loaMovies(bundle.getBoolean(BUNDLE_CODE));
+        Genre genre = (Genre) bundle.getSerializable(BUNDLE_GENRE);
+        mViewModel = new CategoryViewModel(this, genre.getId());
+        mViewModel.loaMovies(bundle.getBoolean(BUNDLE_TYPE));
+    }
+
+    private void initAdapter() {
+        RecyclerView recycler = mBinding.recyclerMovies;
+        recycler.setAdapter(new MovieAdapter());
     }
 }
