@@ -118,11 +118,15 @@ public class BindingUtils {
     public static void bindCompanies(RecyclerView recycler, boolean isCast,
                                      @Nullable List<Company> companies, @Nullable List<Cast> casts) {
         if (isCast) {
-            CastAdapter adapter = new CastAdapter(casts);
-            recycler.setAdapter(adapter);
+            CastAdapter castAdapter = (CastAdapter) recycler.getAdapter();
+            if (castAdapter != null) {
+                castAdapter.update(casts);
+            }
         } else {
-            CompanyAdapter adapter = new CompanyAdapter(companies);
-            recycler.setAdapter(adapter);
+            CompanyAdapter companyAdapter = (CompanyAdapter) recycler.getAdapter();
+            if (companyAdapter != null) {
+                companyAdapter.update(companies);
+            }
         }
     }
 

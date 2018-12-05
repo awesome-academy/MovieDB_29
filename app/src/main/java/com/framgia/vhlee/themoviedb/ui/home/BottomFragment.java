@@ -17,7 +17,7 @@ import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 
-public class BottomFragment extends Fragment implements HomeNavigator {
+public class BottomFragment extends Fragment implements HomeNavigator, MovieAdapter.MovieClickListener {
     private HomeViewModel mViewModel;
 
     public BottomFragment() {
@@ -31,7 +31,7 @@ public class BottomFragment extends Fragment implements HomeNavigator {
         mViewModel = new HomeViewModel(this);
         binding.setHomeVM(mViewModel);
         RecyclerView recycler = binding.recyclerGenres;
-        recycler.setAdapter(new MovieAdapter());
+        recycler.setAdapter(new MovieAdapter(this));
         return binding.getRoot();
     }
 
@@ -56,5 +56,10 @@ public class BottomFragment extends Fragment implements HomeNavigator {
     @Override
     public void startDetailActivity(Movie movie) {
         startActivity(DetailActivity.getDetailIntent(getActivity(), movie));
+    }
+
+    @Override
+    public void onMovieClick(Movie movie) {
+        startDetailActivity(movie);
     }
 }
