@@ -34,14 +34,14 @@ public class HomeViewModel extends BaseObservable {
     private CompositeDisposable mCompositeDisposable;
     private HomeNavigator mNavigator;
 
-    public HomeViewModel(HomeNavigator navigator) {
+    public HomeViewModel(HomeNavigator navigator, MoviesRepository repository) {
         mPage = DEFAULT_PAGE;
         mNavigator = navigator;
+        mMoviesRepository = repository;
         mGenreId = new ObservableField<>();
         mGenres = new ObservableArrayList<>();
         mHighLightMovies = new ObservableArrayList<>();
         mGenreMovies = new ObservableArrayList<>();
-        mMoviesRepository = MoviesRepository.getInstance();
         mCompositeDisposable = new CompositeDisposable();
     }
 

@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
+import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
+import com.framgia.vhlee.themoviedb.data.source.local.LocalDataSource;
+import com.framgia.vhlee.themoviedb.data.source.remote.RemoteDataSource;
 import com.framgia.vhlee.themoviedb.databinding.FragmentBottomBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
@@ -28,7 +31,10 @@ public class BottomFragment extends Fragment implements HomeNavigator, MovieAdap
                              Bundle savedInstanceState) {
         FragmentBottomBinding binding = DataBindingUtil.inflate(getLayoutInflater(),
                 R.layout.fragment_bottom, container, false);
-        mViewModel = new HomeViewModel(this);
+        MoviesRepository repository = MoviesRepository.getInstance(
+                LocalDataSource.getInstance(getContext()),
+                RemoteDataSource.getInstance());
+        mViewModel = new HomeViewModel(this, repository);
         binding.setHomeVM(mViewModel);
         RecyclerView recycler = binding.recyclerGenres;
         recycler.setAdapter(new MovieAdapter(this));
