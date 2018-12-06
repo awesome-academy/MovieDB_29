@@ -1,6 +1,7 @@
 package com.framgia.vhlee.themoviedb.ui.adapter;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

@@ -27,4 +27,9 @@ public interface ClientRequest {
     @GET("movie/{movie_id}")
     Observable<Movie> getMovieDetail(@Path("movie_id") int id,
                                      @Query("append_to_response") String append);
+
+    @GET("search/{type}")
+    Observable<MovieResponse> searchByMovie(@Path("type") String type,
+                                            @Query("query") String keyword,
+                                            @Query("page") int page);
 }
