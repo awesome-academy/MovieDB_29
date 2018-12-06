@@ -58,8 +58,24 @@
             android:orientation="vertical"
             app:bindData="@{homeVM.genreMovies}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/button_view_all"
             app:layout_constraintEnd_toEndOf="@id/spinner_genres"
             app:layout_constraintStart_toStartOf="@id/text_genres"
             app:layout_constraintTop_toBottomOf="@id/spinner_genres" />
+
+        <Button
+            android:id="@+id/button_view_all"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_3"
+            android:background="@drawable/button_outline_style"
+            android:onClick="@{(view) -> homeVM.onCategoryClick(view, homeVM.genreId, true)}"
+            android:text="@string/view_all"
+            app:layout_constraintEnd_toEndOf="@id/view_genres"
+            app:layout_constraintStart_toStartOf="@id/view_genres"
+            app:layout_constraintTop_toBottomOf="@id/recycler_genres" />
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -2,6 +2,7 @@ package com.framgia.vhlee.themoviedb.ui.category;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
+import android.util.Log;
 
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
@@ -24,7 +25,6 @@ public class CategoryViewModel extends BaseObservable {
     private CategoryNavigator mNavigator;
 
     public CategoryViewModel(CategoryNavigator navigator, MoviesRepository repository, String type) {
-        mPage = DEFAULT_PAGE;
         mType = type;
         mNavigator = navigator;
         mMovies = new ObservableArrayList<>();
@@ -32,7 +32,8 @@ public class CategoryViewModel extends BaseObservable {
         mCompositeDisposable = new CompositeDisposable();
     }
 
-    public void loaMovies(boolean isGenre) {
+    public void loaMovies(boolean isGenre, int page) {
+        mPage = page;
         if (isGenre) loaGenreMovies();
         else loadCategoryMovies();
     }
@@ -53,6 +54,7 @@ public class CategoryViewModel extends BaseObservable {
                     @Override
                     public void accept(MovieResponse movieResponse) throws Exception {
                         mMovies.addAll(movieResponse.getResults());
+                        mNavigator.hideLoading();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -71,6 +73,7 @@ public class CategoryViewModel extends BaseObservable {
                     @Override
                     public void accept(MovieResponse movieResponse) throws Exception {
                         mMovies.addAll(movieResponse.getResults());
+                        mNavigator.hideLoading();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

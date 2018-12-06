@@ -67,7 +67,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         mIsFavorite = favorite;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
         private ItemMovieBinding mItemMovieBinding;
         private MovieClickListener mClickListener;
 
@@ -78,6 +79,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             mItemMovieBinding.imageDelete.setOnClickListener(this);
             mItemMovieBinding.textVoteAverage.setOnClickListener(this);
             mItemMovieBinding.cardMovie.setOnClickListener(this);
+            mItemMovieBinding.cardMovie.setOnLongClickListener(this);
         }
 
         public void bindData(Movie movie) {
@@ -97,8 +99,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 mItemMovieBinding.textVoteAverage.setVisibility(View.GONE);
             }
             if (view == mItemMovieBinding.cardMovie) {
-                mClickListener.onMovieClick(mItemMovieBinding.getMovieVM().getMovie());
+                if (mItemMovieBinding.imageDelete.getVisibility() == View.VISIBLE) {
+                    mItemMovieBinding.imageDelete.setVisibility(View.GONE);
+                    mItemMovieBinding.textVoteAverage.setVisibility(View.VISIBLE);
+                } else {
+                    mClickListener.onMovieClick(mItemMovieBinding.getMovieVM().getMovie());
+                }
             }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (mIsFavorite) {
+                mItemMovieBinding.imageDelete.setVisibility(View.VISIBLE);
+                mItemMovieBinding.textVoteAverage.setVisibility(View.GONE);
+            }
+            return true;
         }
     }
 
