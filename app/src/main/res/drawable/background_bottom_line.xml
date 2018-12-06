@@ -1,0 +1,23 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="@dimen/dp_1"
+        android:left="@dimen/dp_2"
+        android:right="@dimen/dp_2"
+        android:top="@dimen/dp_2">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/dp_1"
+                android:color="@color/color_light_grey" />
+            <solid android:color="@android:color/white" />
+            <stroke
+                android:width="@dimen/dp_1"
+                android:dashWidth="@dimen/dp_5"
+                android:dashGap="@dimen/dp_5" />
+            <padding
+                android:bottom="@dimen/dp_5"
+                android:left="@dimen/dp_5"
+                android:right="@dimen/dp_5"
+                android:top="@dimen/dp_5" />
+        </shape>
+    </item>
+</layer-list>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -17,6 +18,7 @@ import com.framgia.vhlee.themoviedb.data.source.remote.RemoteDataSource;
 import com.framgia.vhlee.themoviedb.databinding.ActivityCategoryBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
+import com.framgia.vhlee.themoviedb.ui.search.SearchActivity;
 import com.framgia.vhlee.themoviedb.utils.RecyclerScrollController;
 
 public class CategoryActivity extends RecyclerScrollController
@@ -60,10 +62,21 @@ public class CategoryActivity extends RecyclerScrollController
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.acitivity_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
+                break;
+            case R.id.item_search:
+                startActivity(SearchActivity.getSearchIntent(this));
+                break;
+            default:
                 break;
         }
         return true;

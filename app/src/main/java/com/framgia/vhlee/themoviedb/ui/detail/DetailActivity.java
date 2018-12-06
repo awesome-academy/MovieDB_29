@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,6 +23,7 @@ import com.framgia.vhlee.themoviedb.ui.adapter.GenreAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.VideoAdapter;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 import com.framgia.vhlee.themoviedb.ui.dialog.BottomSheetDialog;
+import com.framgia.vhlee.themoviedb.ui.search.SearchActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 
 public class DetailActivity extends AppCompatActivity
@@ -63,10 +65,21 @@ public class DetailActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.acitivity_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
+                break;
+            case R.id.item_search:
+                startActivity(SearchActivity.getSearchIntent(this));
+                break;
+            default:
                 break;
         }
         return true;
