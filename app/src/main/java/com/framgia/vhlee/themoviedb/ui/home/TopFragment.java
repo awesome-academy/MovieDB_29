@@ -19,6 +19,7 @@ import com.framgia.vhlee.themoviedb.databinding.FragmentTopBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.HighLightAdapter;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
+import com.framgia.vhlee.themoviedb.ui.favorite.FavoriteActivity;
 import com.framgia.vhlee.themoviedb.utils.MovieViewModel;
 
 public class TopFragment extends Fragment
@@ -65,6 +66,11 @@ public class TopFragment extends Fragment
     @Override
     public void startDetailActivity(Movie movie) {
         startActivity(DetailActivity.getDetailIntent(getActivity(), movie));
+    }
+
+    @Override
+    public void startFavoriteActivity() {
+        startActivity(FavoriteActivity.getFavoriteIntent(getActivity()));
     }
 
     @Override

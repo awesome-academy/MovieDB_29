@@ -113,6 +113,10 @@ public class HomeViewModel extends BaseObservable {
         mNavigator.startCategoryActivity(genre, isGenre);
     }
 
+    public void onFavoriteClick(View view) {
+        mNavigator.startFavoriteActivity();
+    }
+
     private String convertType(String type) {
         switch (type) {
             case GenresKey.TOP_RATED:

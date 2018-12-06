@@ -7,4 +7,6 @@ public interface HomeNavigator {
     void startCategoryActivity(Genre genre, boolean isGenre);
 
     void startDetailActivity(Movie movie);
+
+    void startFavoriteActivity();
 }

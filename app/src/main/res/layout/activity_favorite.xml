@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="favoriteVM"
+            type="com.framgia.vhlee.themoviedb.ui.favorite.FavoriteViewModel" />
+    </data>
+
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -14,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_5"
+            android:text="@string/title_favorite_storage"
             android:textSize="@dimen/sp_16"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +31,10 @@
             android:id="@+id/text_favorite_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:text="@{String.valueOf(favoriteVM.count)}"
             android:textColor="@color/color_accent"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_20"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_favorite_title" />
@@ -47,6 +56,7 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/dp_5"
             android:orientation="vertical"
+            app:bindData="@{favoriteVM.movies}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="@id/view_favorite"
             app:layout_constraintEnd_toEndOf="@id/view_favorite"
