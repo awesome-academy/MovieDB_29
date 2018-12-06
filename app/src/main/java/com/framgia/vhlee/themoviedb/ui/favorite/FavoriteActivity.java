@@ -14,10 +14,12 @@ import com.framgia.vhlee.themoviedb.data.source.local.LocalDataSource;
 import com.framgia.vhlee.themoviedb.data.source.remote.RemoteDataSource;
 import com.framgia.vhlee.themoviedb.databinding.ActivityFavoriteBinding;
 import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
+import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 
 public class FavoriteActivity extends AppCompatActivity
         implements MovieAdapter.MovieClickListener {
     private ActivityFavoriteBinding mBinding;
+    private MovieAdapter mMovieAdapter;
 
     public static Intent getFavoriteIntent(Context context) {
         return new Intent(context, FavoriteActivity.class);
@@ -33,7 +35,9 @@ public class FavoriteActivity extends AppCompatActivity
 
     private void initAdapter() {
         RecyclerView recycler = mBinding.recyclerFavorite;
-        recycler.setAdapter(new MovieAdapter(this));
+        mMovieAdapter = new MovieAdapter(this);
+        mMovieAdapter.setFavorite(true);
+        recycler.setAdapter(mMovieAdapter);
     }
 
     private void initViewModel() {
@@ -47,5 +51,14 @@ public class FavoriteActivity extends AppCompatActivity
 
     @Override
     public void onMovieClick(Movie movie) {
+        startActivity(DetailActivity.getDetailIntent(this, movie));
+    }
+
+    @Override
+    public void onDeleteClick(Movie movie, int position) {
+        if (mBinding.getFavoriteVM().removeFavorite(movie)) {
+            mMovieAdapter.delete(position);
+            mBinding.getFavoriteVM().setCount(mMovieAdapter.getItemCount());
+        }
     }
 }

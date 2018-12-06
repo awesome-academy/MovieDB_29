@@ -72,4 +72,9 @@ public class BottomFragment extends Fragment implements HomeNavigator, MovieAdap
     public void onMovieClick(Movie movie) {
         startDetailActivity(movie);
     }
+
+    @Override
+    public void onDeleteClick(Movie movie, int position) {
+        //TODO ignore on this fragment
+    }
 }
