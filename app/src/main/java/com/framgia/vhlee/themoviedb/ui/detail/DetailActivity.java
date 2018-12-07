@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.framgia.vhlee.themoviedb.R;
@@ -49,6 +50,7 @@ public class DetailActivity extends AppCompatActivity
         mViewModel = new DetailViewModel(this, repository);
         mBinding.setDetailVM(mViewModel);
         initAdapter();
+        initMenu();
         initYoutubePlayerView();
         configLayout();
     }
@@ -58,6 +60,16 @@ public class DetailActivity extends AppCompatActivity
         super.onStart();
         int movieId = getIntent().getIntExtra(EXTRA_ID, 0);
         mViewModel.loadDetail(movieId);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -82,6 +94,18 @@ public class DetailActivity extends AppCompatActivity
         configLayout();
     }
 
+    @Override
+    public void onGenreClick(Genre genre) {
+        startCategoryActivity(genre, true);
+    }
+
+    @Override
+    public void onVideoClick(Video video) {
+        mVideoFragment.getView().setVisibility(View.VISIBLE);
+        mVideoFragment.setVideoId(video.getKey(), this);
+        mVideoFragment.play();
+    }
+
     private void initAdapter() {
         RecyclerView recyclerGenres = mBinding.viewGenres.recyclerGenresLabel;
         RecyclerView recyclerTrailers = mBinding.viewTrailers.recyclerTrailers;
@@ -99,15 +123,8 @@ public class DetailActivity extends AppCompatActivity
         //TODO Configure layout changes
     }
 
-    @Override
-    public void onGenreClick(Genre genre) {
-        startCategoryActivity(genre, true);
-    }
-
-    @Override
-    public void onVideoClick(Video video) {
-        mVideoFragment.getView().setVisibility(View.VISIBLE);
-        mVideoFragment.setVideoId(video.getKey(), this);
-        mVideoFragment.play();
+    private void initMenu() {
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_left);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

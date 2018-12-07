@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
@@ -20,7 +21,8 @@ import com.framgia.vhlee.themoviedb.ui.adapter.MovieAdapter;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 
-public class BottomFragment extends Fragment implements HomeNavigator, MovieAdapter.MovieClickListener {
+public class BottomFragment extends Fragment
+        implements HomeNavigator, MovieAdapter.MovieClickListener {
     private HomeViewModel mViewModel;
 
     public BottomFragment() {
@@ -36,9 +38,25 @@ public class BottomFragment extends Fragment implements HomeNavigator, MovieAdap
                 RemoteDataSource.getInstance());
         mViewModel = new HomeViewModel(this, repository);
         binding.setHomeVM(mViewModel);
+        initRecycler(binding);
+        return binding.getRoot();
+    }
+
+    private void initRecycler(FragmentBottomBinding binding) {
+        final Button buttonAll = binding.buttonViewAll;
         RecyclerView recycler = binding.recyclerGenres;
         recycler.setAdapter(new MovieAdapter(this));
-        return binding.getRoot();
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy < 0 && buttonAll.getVisibility() == View.VISIBLE) {
+                    buttonAll.setVisibility(View.GONE);
+                } else if (dy > 0 && buttonAll.getVisibility() != View.VISIBLE) {
+                    buttonAll.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override

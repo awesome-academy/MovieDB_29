@@ -97,8 +97,8 @@
 
             <ImageView
                 android:id="@+id/image_delete"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
                 android:src="@drawable/ic_delete"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/progress_vote"
