@@ -21,12 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.category.CategoryActivity" />
+        <activity
+            android:name=".ui.category.CategoryActivity"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ui.detail.DetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleInstance"
             android:screenOrientation="sensor" />
         <activity android:name=".ui.favorite.FavoriteActivity" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:theme="@style/FullScreen" />
     </application>
 
 </manifest>
