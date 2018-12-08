@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.framgia.vhlee.themoviedb.R;
+import com.framgia.vhlee.themoviedb.data.model.CategoryRequest;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.Video;
@@ -86,8 +87,8 @@ public class DetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void startCategoryActivity(Genre genre, boolean isGenre) {
-        startActivity(CategoryActivity.getCategoryIntent(this, genre, isGenre));
+    public void startCategoryActivity(Genre genre, int source) {
+        startActivity(CategoryActivity.getCategoryIntent(this, genre, source));
     }
 
     @Override
@@ -109,7 +110,7 @@ public class DetailActivity extends AppCompatActivity
 
     @Override
     public void onGenreClick(Genre genre) {
-        startCategoryActivity(genre, true);
+        startCategoryActivity(genre, CategoryRequest.GENRE);
     }
 
     @Override

@@ -20,6 +20,14 @@ public interface ClientRequest {
     Observable<MovieResponse> getMoviesByGenre(@Query("with_genres") String idGenre,
                                                @Query("page") int page);
 
+    @GET("discover/movie")
+    Observable<MovieResponse> getMoviesByCast(@Query("with_cast") String idCast,
+                                               @Query("page") int page);
+
+    @GET("discover/movie")
+    Observable<MovieResponse> getMoviesByCompany(@Query("with_companies") String idCompany,
+                                               @Query("page") int page);
+
     @GET("movie/{type}")
     Observable<MovieResponse> getMoviesCategory(@Path("type") String type,
                                                 @Query("page") int page);

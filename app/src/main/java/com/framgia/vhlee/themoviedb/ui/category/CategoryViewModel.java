@@ -2,8 +2,8 @@ package com.framgia.vhlee.themoviedb.ui.category;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
-import android.util.Log;
 
+import com.framgia.vhlee.themoviedb.data.model.CategoryRequest;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.model.MovieResponse;
 import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
@@ -32,10 +32,24 @@ public class CategoryViewModel extends BaseObservable {
         mCompositeDisposable = new CompositeDisposable();
     }
 
-    public void loaMovies(boolean isGenre, int page) {
+    public void loaMovies(@CategoryRequest int source, int page) {
         mPage = page;
-        if (isGenre) loaGenreMovies();
-        else loadCategoryMovies();
+        switch (source) {
+            case CategoryRequest.CATEGORY:
+                loadCategoryMovies();
+                break;
+            case CategoryRequest.GENRE:
+                loaGenreMovies();
+                break;
+            case CategoryRequest.CAST:
+                loadCastMovies();
+                break;
+            case CategoryRequest.COMPANY:
+                loadCompanyMovies();
+                break;
+            default:
+                break;
+        }
     }
 
     public ObservableArrayList<Movie> getMovies() {
@@ -67,6 +81,44 @@ public class CategoryViewModel extends BaseObservable {
 
     private void loadCategoryMovies() {
         Disposable disposable = mMoviesRepository.getMoviesByCategory(mType, mPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieResponse>() {
+                    @Override
+                    public void accept(MovieResponse movieResponse) throws Exception {
+                        mMovies.addAll(movieResponse.getResults());
+                        mNavigator.hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable.getMessage());
+                    }
+                });
+        mCompositeDisposable.add(disposable);
+    }
+
+    private void loadCastMovies() {
+        Disposable disposable = mMoviesRepository.getMoviesByCast(mType, mPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieResponse>() {
+                    @Override
+                    public void accept(MovieResponse movieResponse) throws Exception {
+                        mMovies.addAll(movieResponse.getResults());
+                        mNavigator.hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable.getMessage());
+                    }
+                });
+        mCompositeDisposable.add(disposable);
+    }
+
+    private void loadCompanyMovies() {
+        Disposable disposable = mMoviesRepository.getMoviesByCompany(mType, mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResponse>() {

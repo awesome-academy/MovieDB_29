@@ -59,8 +59,8 @@ public class TopFragment extends Fragment
     }
 
     @Override
-    public void startCategoryActivity(Genre genre, boolean isGenre) {
-        startActivity(CategoryActivity.getCategoryIntent(getActivity(), genre, isGenre));
+    public void startCategoryActivity(Genre genre, int source) {
+        startActivity(CategoryActivity.getCategoryIntent(getActivity(), genre, source));
     }
 
     @Override

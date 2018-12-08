@@ -62,7 +62,6 @@ public class BottomFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-        mViewModel.setGenreMovies();
         mViewModel.loadGenres();
     }
 
@@ -73,8 +72,8 @@ public class BottomFragment extends Fragment
     }
 
     @Override
-    public void startCategoryActivity(Genre genre, boolean isGenre) {
-        startActivity(CategoryActivity.getCategoryIntent(getActivity(), genre, isGenre));
+    public void startCategoryActivity(Genre genre, int source) {
+        startActivity(CategoryActivity.getCategoryIntent(getActivity(), genre, source));
     }
 
     @Override

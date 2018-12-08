@@ -30,6 +30,10 @@ public interface DataSource {
 
         Observable<MovieResponse> getMoviesByGenre(String id, int page);
 
+        Observable<MovieResponse> getMoviesByCast(String idCast, int page);
+
+        Observable<MovieResponse> getMoviesByCompany(String idCompany, int page);
+
         Observable<MovieResponse> getHighLightMovies();
 
         Observable<Movie> getMovieDetail(int id, String append);
