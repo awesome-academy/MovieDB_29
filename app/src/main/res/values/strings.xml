@@ -20,4 +20,5 @@
     <string name="action_open_favorite">Open Favorite</string>
     <string name="notify_remove_success">Remove successfully</string>
     <string name="action_undo">Undo</string>
+    <string name="notify_no_movies">No movies found</string>
 </resources>

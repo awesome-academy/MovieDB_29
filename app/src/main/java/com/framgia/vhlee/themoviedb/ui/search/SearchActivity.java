@@ -132,9 +132,10 @@ public class SearchActivity extends RecyclerScrollController
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String s) throws Exception {
-                        mKeyword = s;
+                    public void accept(String keyword) throws Exception {
+                        mKeyword = keyword;
                         mViewModel.clear();
+                        mViewModel.getTotalResult().set(0);
                         mViewModel.search(DEFAULT_TYPE, mKeyword, mPage);
                     }
                 }, new Consumer<Throwable>() {

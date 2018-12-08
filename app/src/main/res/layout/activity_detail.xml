@@ -55,10 +55,28 @@
             </LinearLayout>
         </ScrollView>
 
-        <fragment
-            android:id="@+id/fragment_youtube_view"
-            class="com.framgia.vhlee.themoviedb.ui.detail.VideoFragment"
+        <LinearLayout
+            android:id="@+id/linear_video_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/fragment_youtube_view"
+                class="com.framgia.vhlee.themoviedb.ui.detail.VideoFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/image_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/dp_1"
+                android:background="@android:color/black"
+                android:onClick="@{(view) -> detailVM.onCloseClick(view)}"
+                android:src="@drawable/ic_close" />
+        </LinearLayout>
     </FrameLayout>
 </layout>
