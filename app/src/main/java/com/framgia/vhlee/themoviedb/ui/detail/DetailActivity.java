@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -24,12 +25,13 @@ import com.framgia.vhlee.themoviedb.ui.adapter.GenreAdapter;
 import com.framgia.vhlee.themoviedb.ui.adapter.VideoAdapter;
 import com.framgia.vhlee.themoviedb.ui.category.CategoryActivity;
 import com.framgia.vhlee.themoviedb.ui.dialog.BottomSheetDialog;
+import com.framgia.vhlee.themoviedb.ui.favorite.FavoriteActivity;
 import com.framgia.vhlee.themoviedb.ui.search.SearchActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 
 public class DetailActivity extends AppCompatActivity
         implements DetailNavigator, YouTubePlayer.OnFullscreenListener,
-        GenreAdapter.GenreClickListener, VideoAdapter.VideoClickListener {
+        GenreAdapter.GenreClickListener, VideoAdapter.VideoClickListener, View.OnClickListener {
     private static final String TAG = "DetailActivity";
     private static final String TAG_BOTTOM_SHEET = "BottomSheet";
     private static final String EXTRA_ID = "com.framgia.vhlee.themoviedb.extras.EXTRA_ID";
@@ -140,5 +142,18 @@ public class DetailActivity extends AppCompatActivity
     private void initMenu() {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_left);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void showSnackBar() {
+        Snackbar snackbar = Snackbar.make(mBinding.scrollViewDetail,
+                R.string.notify_add_success, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.action_open_favorite, this);
+        snackbar.show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        startActivity(FavoriteActivity.getFavoriteIntent(this));
     }
 }

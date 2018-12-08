@@ -4,12 +4,20 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="actionBarStyle">@style/ActionBarBottomLine</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="ActionBarBottomLine" parent="Base.Widget.AppCompat.Light.ActionBar">
+        <item name="background">@drawable/background_bottom_line</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -21,6 +29,7 @@
         <item name="android:textSize">@dimen/sp_16</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">@dimen/dp_5</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="TextCardView" parent="TextAppearance.AppCompat">
@@ -31,8 +40,9 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/sp_20</item>
-        <item name="android:paddingBottom">@dimen/dp_16</item>
-        <item name="android:paddingTop">@dimen/dp_16</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="BackgroundSection" parent="Theme.AppCompat.Light.Dialog">

@@ -41,10 +41,11 @@
                 android:layout_marginStart="@dimen/dp_16"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="@{movieVM.title}"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/progress_vote"
                 app:layout_constraintStart_toEndOf="@id/image_thumbnail"
                 app:layout_constraintTop_toTopOf="@id/image_thumbnail" />

@@ -65,7 +65,7 @@ public class HomeViewModel extends BaseObservable {
         mCompositeDisposable.add(disposable);
     }
 
-    public void setGenreMovies() {
+    private void setGenreMovies() {
         Disposable disposable = mMoviesRepository.getMoviesByGenre(mGenre.get().getId(), mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

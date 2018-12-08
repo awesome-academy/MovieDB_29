@@ -33,6 +33,7 @@ public class SearchActivity extends RecyclerScrollController
         implements SearchNavigator, MovieAdapter.MovieClickListener {
     private static final String TAG = "SearchActivity";
     private static final String DEFAULT_TYPE = "movie";
+    private static final int DEFAULT_TIMEOUT = 500;
     private static final int DEFAULT_PAGE = 1;
     private ActivitySearchBinding mBinding;
     private SearchViewModel mViewModel;
@@ -125,7 +126,8 @@ public class SearchActivity extends RecyclerScrollController
     }
 
     private void initObservable(PublishSubject<String> subject) {
-        Disposable disposable = subject.debounce(500, TimeUnit.MILLISECONDS)
+        Disposable disposable = subject.debounce(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
