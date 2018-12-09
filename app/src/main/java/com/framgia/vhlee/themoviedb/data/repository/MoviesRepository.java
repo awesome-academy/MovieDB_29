@@ -49,6 +49,16 @@ public class MoviesRepository implements DataSource.Remote, DataSource.Local {
     }
 
     @Override
+    public Observable<MovieResponse> getMoviesByCast(String idCast, int page) {
+        return mRemote.getMoviesByCast(idCast, page);
+    }
+
+    @Override
+    public Observable<MovieResponse> getMoviesByCompany(String idCompany, int page) {
+        return mRemote.getMoviesByCompany(idCompany, page);
+    }
+
+    @Override
     public Observable<MovieResponse> getHighLightMovies() {
         return mRemote.getHighLightMovies();
     }

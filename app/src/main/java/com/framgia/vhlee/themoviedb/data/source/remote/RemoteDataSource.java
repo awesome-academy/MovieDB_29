@@ -40,6 +40,16 @@ public class RemoteDataSource implements DataSource.Remote {
     }
 
     @Override
+    public Observable<MovieResponse> getMoviesByCast(String idCast, int page) {
+        return mClientRequest.getMoviesByCast(idCast, page);
+    }
+
+    @Override
+    public Observable<MovieResponse> getMoviesByCompany(String idCompany, int page) {
+        return mClientRequest.getMoviesByCompany(idCompany, page);
+    }
+
+    @Override
     public Observable<MovieResponse> getHighLightMovies() {
         return mClientRequest.getMoviesHighLight();
     }

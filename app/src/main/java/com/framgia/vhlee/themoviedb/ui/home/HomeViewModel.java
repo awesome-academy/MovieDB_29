@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.framgia.vhlee.themoviedb.data.model.CategoryName;
+import com.framgia.vhlee.themoviedb.data.model.CategoryRequest;
 import com.framgia.vhlee.themoviedb.data.model.Genre;
 import com.framgia.vhlee.themoviedb.data.model.GenresKey;
 import com.framgia.vhlee.themoviedb.data.model.GenresResponse;
@@ -26,7 +27,7 @@ public class HomeViewModel extends BaseObservable {
     private static final String BUNDLE_CODE = "BUNDLE_CODE";
     private static final int DEFAULT_PAGE = 1;
     private int mPage;
-    private ObservableField<String> mGenreId;
+    private ObservableField<Genre> mGenre;
     private ObservableArrayList<Movie> mHighLightMovies;
     private ObservableArrayList<Movie> mGenreMovies;
     private ObservableArrayList<Genre> mGenres;
@@ -38,7 +39,7 @@ public class HomeViewModel extends BaseObservable {
         mPage = DEFAULT_PAGE;
         mNavigator = navigator;
         mMoviesRepository = repository;
-        mGenreId = new ObservableField<>();
+        mGenre = new ObservableField<>();
         mGenres = new ObservableArrayList<>();
         mHighLightMovies = new ObservableArrayList<>();
         mGenreMovies = new ObservableArrayList<>();
@@ -65,7 +66,7 @@ public class HomeViewModel extends BaseObservable {
     }
 
     public void setGenreMovies() {
-        Disposable disposable = mMoviesRepository.getMoviesByGenre(mGenreId.get(), mPage)
+        Disposable disposable = mMoviesRepository.getMoviesByGenre(mGenre.get().getId(), mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieResponse>() {
@@ -102,15 +103,19 @@ public class HomeViewModel extends BaseObservable {
     }
 
     public void onItemSpinnerSelected(AdapterView<?> parent, View view, int position, long id) {
-        mGenreId.set(mGenres.get(position).getId());
+        mGenre.set(mGenres.get(position));
         setGenreMovies();
     }
 
-    public void onCategoryClick(View view, String type, boolean isGenre) {
+    public void onCategoryClick(View view, String type) {
         Genre genre = new Genre();
         genre.setId(type);
         genre.setName(convertType(type));
-        mNavigator.startCategoryActivity(genre, isGenre);
+        mNavigator.startCategoryActivity(genre, CategoryRequest.CATEGORY);
+    }
+
+    public void onGenreClick(View view, Genre genre) {
+        mNavigator.startCategoryActivity(genre, CategoryRequest.GENRE);
     }
 
     public void onFavoriteClick(View view) {
@@ -144,8 +149,8 @@ public class HomeViewModel extends BaseObservable {
         return mGenres;
     }
 
-    public ObservableField<String> getGenreId() {
-        return mGenreId;
+    public ObservableField<Genre> getGenre() {
+        return mGenre;
     }
 
     private void handleError(String message) {

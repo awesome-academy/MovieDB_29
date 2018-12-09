@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Cast implements Serializable {
     @SerializedName("cast_id")
-    private int mCastId;
+    private String mCastId;
 
     @SerializedName("character")
     private String mCharacter;
@@ -17,14 +17,17 @@ public class Cast implements Serializable {
     @SerializedName("profile_path")
     private String mProfilePath;
 
+    @SerializedName("id")
+    private String mPeopleId;
+
     public Cast() {
     }
 
-    public int getCastId() {
+    public String getCastId() {
         return mCastId;
     }
 
-    public void setCastId(int castId) {
+    public void setCastId(String castId) {
         mCastId = castId;
     }
 
@@ -50,5 +53,13 @@ public class Cast implements Serializable {
 
     public void setProfilePath(String profilePath) {
         mProfilePath = profilePath;
+    }
+
+    public String getPeopleId() {
+        return mPeopleId;
+    }
+
+    public void setPeopleId(String peopleId) {
+        mPeopleId = peopleId;
     }
 }

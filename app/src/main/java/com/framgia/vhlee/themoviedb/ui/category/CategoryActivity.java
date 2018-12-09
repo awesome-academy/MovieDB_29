@@ -31,12 +31,13 @@ public class CategoryActivity extends RecyclerScrollController
     private boolean mIsGenre;
     private CategoryViewModel mViewModel;
     private ActivityCategoryBinding mBinding;
+    private int mSource;
 
-    public static Intent getCategoryIntent(Context context, Genre genre, boolean isGenre) {
+    public static Intent getCategoryIntent(Context context, Genre genre, int source) {
         Intent intent = new Intent(context, CategoryActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_GENRE, genre);
-        bundle.putBoolean(BUNDLE_TYPE, isGenre);
+        bundle.putInt(BUNDLE_TYPE, source);
         intent.putExtra(EXTRA_ARGS, bundle);
         return intent;
     }
@@ -105,7 +106,7 @@ public class CategoryActivity extends RecyclerScrollController
     public void loadMore() {
         mIsScrolling = false;
         mProgressBar.setVisibility(View.VISIBLE);
-        mViewModel.loaMovies(mIsGenre, ++mPage);
+        mViewModel.loaMovies(mSource, ++mPage);
     }
 
     @Override
@@ -128,7 +129,7 @@ public class CategoryActivity extends RecyclerScrollController
                 RemoteDataSource.getInstance());
         mViewModel = new CategoryViewModel(this, repository, genre.getId());
         mBinding.setCategoryVM(mViewModel);
-        mViewModel.loaMovies(mIsGenre, mPage);
+        mViewModel.loaMovies(mSource, mPage);
     }
 
     private void initMenu() {
