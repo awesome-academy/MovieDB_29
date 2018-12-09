@@ -14,6 +14,11 @@ public class Genre implements Serializable {
     public Genre() {
     }
 
+    public Genre(String id, String name) {
+        mId = id;
+        mName = name;
+    }
+
     public String getId() {
         return mId;
     }

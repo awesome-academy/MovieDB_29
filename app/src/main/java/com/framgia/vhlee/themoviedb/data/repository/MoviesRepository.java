@@ -59,6 +59,11 @@ public class MoviesRepository implements DataSource.Remote, DataSource.Local {
     }
 
     @Override
+    public Observable<MovieResponse> searchByMovie(String type, String keyword, int page) {
+        return mRemote.searchByMovie(type, keyword, page);
+    }
+
+    @Override
     public int getCount() {
         return mLocal.getCount();
     }

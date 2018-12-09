@@ -33,5 +33,7 @@ public interface DataSource {
         Observable<MovieResponse> getHighLightMovies();
 
         Observable<Movie> getMovieDetail(int id, String append);
+
+        Observable<MovieResponse> searchByMovie(String type, String keyword, int page);
     }
 }

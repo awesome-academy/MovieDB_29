@@ -48,4 +48,9 @@ public class RemoteDataSource implements DataSource.Remote {
     public Observable<Movie> getMovieDetail(int id, String append) {
         return mClientRequest.getMovieDetail(id, append);
     }
+
+    @Override
+    public Observable<MovieResponse> searchByMovie(String type, String keyword, int page) {
+        return mClientRequest.searchByMovie(type, keyword, page);
+    }
 }
