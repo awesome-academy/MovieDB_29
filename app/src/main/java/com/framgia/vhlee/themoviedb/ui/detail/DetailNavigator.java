@@ -7,4 +7,6 @@ public interface DetailNavigator {
     void startCategoryActivity(Genre genre, int source);
 
     void showBottomSheet(Movie movie, boolean isCast);
+
+    void showSnackBar();
 }

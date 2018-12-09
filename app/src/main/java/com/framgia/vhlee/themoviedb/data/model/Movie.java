@@ -24,6 +24,9 @@ public class Movie implements Serializable {
     @SerializedName("backdrop_path")
     private String mBackdropPath;
 
+    @SerializedName("poster_path")
+    private String mPosterPath;
+
     @SerializedName("status")
     private String mStatus;
 
@@ -89,6 +92,14 @@ public class Movie implements Serializable {
 
     public void setBackdropPath(String backdropPath) {
         mBackdropPath = backdropPath;
+    }
+
+    public String getPosterPath() {
+        return mPosterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        mPosterPath = posterPath;
     }
 
     public String getStatus() {

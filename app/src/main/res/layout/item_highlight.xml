@@ -20,53 +20,72 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{movieVM.backdropPath}"
-            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/view_content_highlight"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/color_black_transparent"
-            app:layout_constraintBottom_toBottomOf="@id/image_highlight"
-            app:layout_constraintDimensionRatio="6:1"
-            app:layout_constraintEnd_toEndOf="@id/image_highlight"
-            app:layout_constraintStart_toStartOf="@id/image_highlight" />
+            android:background="@color/color_transparent_dark"
+            app:layout_constraintBottom_toBottomOf="@id/image_poster"
+            app:layout_constraintEnd_toStartOf="@id/image_poster"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_poster"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/color_primary"
             android:scaleType="centerCrop"
-            app:imageUrl="@{movieVM.backdropPath}"
-            app:layout_constraintBottom_toBottomOf="@id/view_content_highlight"
-            app:layout_constraintDimensionRatio="1:1"
+            app:imageUrl="@{movieVM.posterPath}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_title_highlight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="@{movieVM.title}"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/view_content_highlight"
             app:layout_constraintStart_toStartOf="@id/view_content_highlight"
             app:layout_constraintTop_toTopOf="@id/view_content_highlight" />
 
         <TextView
-            android:id="@+id/text_title_highlight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_5"
-            android:layout_marginTop="@dimen/dp_5"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{movieVM.title}"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/sp_16"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/image_poster"
-            app:layout_constraintTop_toTopOf="@id/view_content_highlight" />
-
-        <TextView
             android:id="@+id/text_sub_highlight"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{movieVM.releaseDate}"
             android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@id/view_content_highlight"
             app:layout_constraintStart_toStartOf="@id/text_title_highlight"
             app:layout_constraintTop_toBottomOf="@id/text_title_highlight" />
+
+        <TextView
+            android:id="@+id/text_overview_highlight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:ellipsize="end"
+            android:maxLines="8"
+            android:text="@{movieVM.overview}"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_poster"
+            app:layout_constraintEnd_toEndOf="@id/view_content_highlight"
+            app:layout_constraintStart_toStartOf="@id/text_title_highlight"
+            app:layout_constraintTop_toBottomOf="@id/text_sub_highlight" />
     </android.support.constraint.ConstraintLayout>
 </layout>

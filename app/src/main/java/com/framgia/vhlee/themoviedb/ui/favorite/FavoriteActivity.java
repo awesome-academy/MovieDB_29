@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.framgia.vhlee.themoviedb.R;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
@@ -20,9 +22,11 @@ import com.framgia.vhlee.themoviedb.ui.detail.DetailActivity;
 import com.framgia.vhlee.themoviedb.ui.search.SearchActivity;
 
 public class FavoriteActivity extends AppCompatActivity
-        implements MovieAdapter.MovieClickListener {
+        implements MovieAdapter.MovieClickListener, View.OnClickListener {
     private ActivityFavoriteBinding mBinding;
     private MovieAdapter mMovieAdapter;
+    private Movie mMovie;
+    private int mPosition;
 
     public static Intent getFavoriteIntent(Context context) {
         return new Intent(context, FavoriteActivity.class);
@@ -66,10 +70,21 @@ public class FavoriteActivity extends AppCompatActivity
         if (mBinding.getFavoriteVM().removeFavorite(movie)) {
             mMovieAdapter.delete(position);
             mBinding.getFavoriteVM().setCount(mMovieAdapter.getItemCount());
+            showSnackBar(movie, position);
         }
     }
 
+    private void showSnackBar(Movie movie, int position) {
+        mMovie = movie;
+        mPosition = position;
+        Snackbar snackbar = Snackbar.make(mBinding.constraintFavorite,
+                R.string.notify_remove_success, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.action_undo, this);
+        snackbar.show();
+    }
+
     private void initAdapter() {
+        mMovie = new Movie();
         RecyclerView recycler = mBinding.recyclerFavorite;
         mMovieAdapter = new MovieAdapter(this);
         mMovieAdapter.setFavorite(true);
@@ -88,5 +103,14 @@ public class FavoriteActivity extends AppCompatActivity
     private void initMenu() {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_left);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (mBinding.getFavoriteVM().undoRemove(mPosition, mMovie)) {
+            mMovieAdapter.add(mMovie, mPosition);
+            mBinding.getFavoriteVM().setCount(mMovieAdapter.getItemCount());
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">The Movie DB</string>
+    <string name="app_name">Movies Dictionary</string>
     <string name="title_categories">Categories</string>
     <string name="title_popular">Popular</string>
     <string name="title_upcoming">Upcoming</string>
@@ -14,6 +14,10 @@
     <string name="title_favorite_storage">Favorite storage</string>
     <string name="title_favorite">Favorite</string>
     <string name="view_all">View all</string>
-    <string name="hint_search">Search something</string>
+    <string name="hint_search">Search movie</string>
     <string name="text_total_result">Total result</string>
+    <string name="notify_add_success">Add successfully</string>
+    <string name="action_open_favorite">Open Favorite</string>
+    <string name="notify_remove_success">Remove successfully</string>
+    <string name="action_undo">Undo</string>
 </resources>

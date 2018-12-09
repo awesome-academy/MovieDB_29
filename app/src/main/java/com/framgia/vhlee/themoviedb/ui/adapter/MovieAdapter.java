@@ -68,6 +68,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         mIsFavorite = favorite;
     }
 
+    public void add(Movie movie, int position) {
+        mMovies.add(position, movie);
+        notifyItemInserted(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
         private ItemMovieBinding mItemMovieBinding;
@@ -84,6 +89,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
         public void bindData(Movie movie) {
+            mItemMovieBinding.imageDelete.setVisibility(View.GONE);
+            mItemMovieBinding.textVoteAverage.setVisibility(View.VISIBLE);
             if (mItemMovieBinding.getMovieVM() == null) {
                 mItemMovieBinding.setMovieVM(new MovieViewModel());
             }

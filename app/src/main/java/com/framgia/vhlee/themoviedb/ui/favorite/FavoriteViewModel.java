@@ -2,6 +2,7 @@ package com.framgia.vhlee.themoviedb.ui.favorite;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableInt;
+import android.util.Log;
 
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
@@ -25,6 +26,10 @@ public class FavoriteViewModel {
 
     public boolean removeFavorite(Movie movie) {
         return mMoviesRepository.delete(movie);
+    }
+
+    public boolean undoRemove(int position, Movie movie) {
+        return mMoviesRepository.insert(movie);
     }
 
     public void setCount(int count) {

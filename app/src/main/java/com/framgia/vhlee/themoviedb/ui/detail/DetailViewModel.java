@@ -2,6 +2,9 @@ package com.framgia.vhlee.themoviedb.ui.detail;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -59,6 +62,7 @@ public class DetailViewModel {
             if (mMoviesRepository.delete(movie)) mIsFavorite.set(false);
         } else {
             if (mMoviesRepository.insert(movie)) mIsFavorite.set(true);
+            mNavigator.showSnackBar();
         }
     }
 

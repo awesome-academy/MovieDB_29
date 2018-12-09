@@ -20,6 +20,10 @@ public class MovieViewModel extends BaseObservable {
         return mMovie.getBackdropPath();
     }
 
+    public String getPosterPath() {
+        return mMovie.getPosterPath();
+    }
+
     public String getTitle() {
         return mMovie.getTitle();
     }

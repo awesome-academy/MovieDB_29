@@ -28,7 +28,6 @@ public class CategoryActivity extends RecyclerScrollController
     private static final String BUNDLE_TYPE = "BUNDLE_TYPE";
     private static final String BUNDLE_GENRE = "BUNDLE_GENRE";
     private int mPage;
-    private boolean mIsGenre;
     private CategoryViewModel mViewModel;
     private ActivityCategoryBinding mBinding;
     private int mSource;
@@ -121,8 +120,8 @@ public class CategoryActivity extends RecyclerScrollController
     private void initViewModel() {
         Bundle bundle = getIntent().getBundleExtra(EXTRA_ARGS);
         mPage = 1;
-        mIsGenre = bundle.getBoolean(BUNDLE_TYPE);
         Genre genre = (Genre) bundle.getSerializable(BUNDLE_GENRE);
+        mSource = bundle.getInt(BUNDLE_TYPE);
         getSupportActionBar().setTitle(genre.getName());
         MoviesRepository repository = MoviesRepository.getInstance(
                 LocalDataSource.getInstance(getApplicationContext()),
