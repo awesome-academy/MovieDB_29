@@ -2,6 +2,7 @@ package com.framgia.vhlee.themoviedb.ui.category;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableInt;
 
 import com.framgia.vhlee.themoviedb.data.model.CategoryRequest;
 import com.framgia.vhlee.themoviedb.data.model.Movie;
@@ -19,6 +20,7 @@ public class CategoryViewModel extends BaseObservable {
     private static final int DEFAULT_PAGE = 1;
     private int mPage;
     private String mType;
+    private ObservableInt mTotalResult;
     private ObservableArrayList<Movie> mMovies;
     private MoviesRepository mMoviesRepository;
     private CompositeDisposable mCompositeDisposable;
@@ -27,6 +29,7 @@ public class CategoryViewModel extends BaseObservable {
     public CategoryViewModel(CategoryNavigator navigator, MoviesRepository repository, String type) {
         mType = type;
         mNavigator = navigator;
+        mTotalResult = new ObservableInt(DEFAULT_PAGE);
         mMovies = new ObservableArrayList<>();
         mMoviesRepository = repository;
         mCompositeDisposable = new CompositeDisposable();
@@ -52,6 +55,10 @@ public class CategoryViewModel extends BaseObservable {
         }
     }
 
+    public ObservableInt getTotalResult() {
+        return mTotalResult;
+    }
+
     public ObservableArrayList<Movie> getMovies() {
         return mMovies;
     }
@@ -68,6 +75,7 @@ public class CategoryViewModel extends BaseObservable {
                     @Override
                     public void accept(MovieResponse movieResponse) throws Exception {
                         mMovies.addAll(movieResponse.getResults());
+                        mTotalResult.set(movieResponse.getToalResult());
                         mNavigator.hideLoading();
                     }
                 }, new Consumer<Throwable>() {
@@ -87,6 +95,7 @@ public class CategoryViewModel extends BaseObservable {
                     @Override
                     public void accept(MovieResponse movieResponse) throws Exception {
                         mMovies.addAll(movieResponse.getResults());
+                        mTotalResult.set(movieResponse.getToalResult());
                         mNavigator.hideLoading();
                     }
                 }, new Consumer<Throwable>() {
@@ -106,6 +115,7 @@ public class CategoryViewModel extends BaseObservable {
                     @Override
                     public void accept(MovieResponse movieResponse) throws Exception {
                         mMovies.addAll(movieResponse.getResults());
+                        mTotalResult.set(movieResponse.getToalResult());
                         mNavigator.hideLoading();
                     }
                 }, new Consumer<Throwable>() {
@@ -125,6 +135,7 @@ public class CategoryViewModel extends BaseObservable {
                     @Override
                     public void accept(MovieResponse movieResponse) throws Exception {
                         mMovies.addAll(movieResponse.getResults());
+                        mTotalResult.set(movieResponse.getToalResult());
                         mNavigator.hideLoading();
                     }
                 }, new Consumer<Throwable>() {

@@ -29,7 +29,8 @@
         <activity android:name=".ui.favorite.FavoriteActivity" />
         <activity
             android:name=".ui.search.SearchActivity"
-            android:theme="@style/FullScreen" />
+            android:theme="@style/FullScreen"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

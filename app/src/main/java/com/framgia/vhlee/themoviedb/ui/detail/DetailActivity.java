@@ -35,6 +35,7 @@ public class DetailActivity extends AppCompatActivity
     private static final String TAG = "DetailActivity";
     private static final String TAG_BOTTOM_SHEET = "BottomSheet";
     private static final String EXTRA_ID = "com.framgia.vhlee.themoviedb.extras.EXTRA_ID";
+    private static final long ANIMATE_TIMEOUT = 500;
     private DetailViewModel mViewModel;
     private ActivityDetailBinding mBinding;
     private VideoFragment mVideoFragment;
@@ -117,7 +118,7 @@ public class DetailActivity extends AppCompatActivity
 
     @Override
     public void onVideoClick(Video video) {
-        mVideoFragment.getView().setVisibility(View.VISIBLE);
+        mBinding.linearVideoBox.setVisibility(View.VISIBLE);
         mVideoFragment.setVideoId(video.getKey(), this);
         mVideoFragment.play();
     }
@@ -132,7 +133,6 @@ public class DetailActivity extends AppCompatActivity
     private void initYoutubePlayerView() {
         mVideoFragment =
                 (VideoFragment) getFragmentManager().findFragmentById(R.id.fragment_youtube_view);
-        mVideoFragment.getView().setVisibility(View.GONE);
     }
 
     private void configLayout() {
@@ -145,11 +145,24 @@ public class DetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void showSnackBar() {
+    public void showAddSnackBar() {
         Snackbar snackbar = Snackbar.make(mBinding.scrollViewDetail,
                 R.string.notify_add_success, Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.action_open_favorite, this);
         snackbar.show();
+    }
+
+    @Override
+    public void showDeleteSnackBar() {
+        Snackbar snackbar = Snackbar.make(mBinding.scrollViewDetail,
+                R.string.notify_remove_success, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    @Override
+    public void closeYoutube() {
+        mVideoFragment.pause();
+        mBinding.linearVideoBox.setVisibility(View.GONE);
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.framgia.vhlee.themoviedb.data.model.Movie;
 import com.framgia.vhlee.themoviedb.data.repository.MoviesRepository;
@@ -60,10 +59,15 @@ public class DetailViewModel {
     public void onFavoriteClick(View view, Movie movie) {
         if (mIsFavorite.get()) {
             if (mMoviesRepository.delete(movie)) mIsFavorite.set(false);
+            mNavigator.showDeleteSnackBar();
         } else {
             if (mMoviesRepository.insert(movie)) mIsFavorite.set(true);
-            mNavigator.showSnackBar();
+            mNavigator.showAddSnackBar();
         }
+    }
+
+    public void onCloseClick(View view) {
+        mNavigator.closeYoutube();
     }
 
     public ObservableBoolean getIsFavorite() {

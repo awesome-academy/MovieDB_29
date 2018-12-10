@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="categoryVM"
             type="com.framgia.vhlee.themoviedb.ui.category.CategoryViewModel" />
@@ -28,10 +30,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/progress_load_more"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/notify_no_movies"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:visibility="@{categoryVM.totalResult == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/progress_load_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_load_more"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

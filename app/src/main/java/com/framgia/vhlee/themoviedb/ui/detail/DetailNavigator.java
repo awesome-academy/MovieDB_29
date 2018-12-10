@@ -8,5 +8,9 @@ public interface DetailNavigator {
 
     void showBottomSheet(Movie movie, boolean isCast);
 
-    void showSnackBar();
+    void showAddSnackBar();
+
+    void showDeleteSnackBar();
+
+    void closeYoutube();
 }

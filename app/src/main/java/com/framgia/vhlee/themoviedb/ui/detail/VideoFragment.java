@@ -53,9 +53,11 @@ public final class VideoFragment extends YouTubePlayerFragment
 
     public void setVideoId(String videoId, YouTubePlayer.OnFullscreenListener listener) {
         mListener = listener;
-        mVideoId = videoId;
-        if (mYouTubePlayer != null) {
-            mYouTubePlayer.cueVideo(videoId);
+        if (videoId != null && !videoId.equals(mVideoId)) {
+            mVideoId = videoId;
+            if (mYouTubePlayer != null) {
+                mYouTubePlayer.cueVideo(videoId);
+            }
         }
     }
 
